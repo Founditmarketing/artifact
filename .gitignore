@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# polish-pass visual probes (regenerate with `node scripts/screenshot.mjs`)
+/screenshots/

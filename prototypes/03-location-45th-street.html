@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>45th Street Facility — Artifacts Self Storage · Rogers, AR</title>
+<meta name="description" content="Artifacts Self Storage 45th Street — brand-new climate-controlled and drive-up storage in Rogers, AR. 24/7 access, elevator, secure units. Now open." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400..500&family=Spline+Sans+Mono:wght@400;500&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #15171c;
+    --ink-soft: #5a5f57;
+    --paper: #dfe1de;
+    --paper-2: #d3d6d2;
+    --card: #eef0ec;
+    --gold: #b08a32;
+    --gold-deep: #8f6f26;
+    --gold-light: #cdb066;
+    --blue: #2c4a6e;
+    --blue-light: #7fa3cc;
+    --rust: #b08a32;
+    --line: #b9bcb6;
+    --line-ink: #262a31;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'Archivo',sans-serif; background:var(--paper); color:var(--ink);
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    background-image:
+      linear-gradient(rgba(44,74,110,0.11) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(44,74,110,0.11) 1px, transparent 1px);
+    background-size:32px 32px;
+  }
+  ::selection { background:var(--ink); color:var(--paper); }
+  h1,h2,h3,.serif { font-family:'Fraunces',serif; font-weight:400; }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'Spline Sans Mono',monospace; }
+
+  .acc {
+    font-family:'Spline Sans Mono',monospace; font-size:0.66rem;
+    letter-spacing:0.08em; color:var(--gold-deep);
+    display:inline-flex; align-items:center; gap:7px;
+  }
+  .acc::before { content:""; width:5px; height:5px; background:var(--gold); border-radius:50%; }
+
+  /* TOPLINE */
+  .topline {
+    background:var(--blue); color:var(--paper);
+    font-family:'Spline Sans Mono',monospace; font-size:0.64rem;
+    letter-spacing:0.14em; text-transform:uppercase;
+    padding:8px 0; overflow:hidden; white-space:nowrap;
+  }
+  .topline-track { display:inline-flex; gap:40px; animation:drift 44s linear infinite; }
+  .topline-track span { display:inline-flex; gap:40px; }
+  .topline-track span::after { content:"·"; color:var(--gold-light); }
+  @keyframes drift { to { transform:translateX(-50%); } }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:100; background:var(--paper); border-bottom:1px solid var(--line-ink); }
+  .nav-inner { display:flex; align-items:stretch; justify-content:space-between; max-width:1340px; margin:0 auto; }
+  .brand { display:flex; flex-direction:column; justify-content:center; padding:16px 40px; border-right:1px solid var(--line-ink); }
+  .brand .name { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:500; letter-spacing:-0.02em; line-height:1; }
+  .brand .name b { font-weight:500; font-style:italic; }
+  .brand .sub { font-family:'Spline Sans Mono',monospace; font-size:0.56rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-deep); margin-top:5px; }
+  .nav-links { display:flex; align-items:stretch; }
+  .nav-links a {
+    display:flex; align-items:center; padding:0 26px;
+    font-family:'Spline Sans Mono',monospace; font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase;
+    border-left:1px solid var(--line); transition:background .25s ease, color .25s ease;
+  }
+  .nav-links a:hover { background:var(--ink); color:var(--paper); }
+  .nav-links a.active { background:var(--paper-2); }
+  .nav-links a.cta { background:var(--gold); color:var(--ink); font-weight:500; border-left:1px solid var(--line-ink); }
+  .nav-links a.cta:hover { background:var(--ink); color:var(--paper); }
+  .menu-btn { display:none; }
+
+  /* BREADCRUMB */
+  .crumb {
+    display:flex; align-items:center; gap:10px;
+    padding:13px 40px; border-bottom:1px solid var(--line);
+    font-family:'Spline Sans Mono',monospace; font-size:0.64rem;
+    letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft);
+    max-width:1340px; margin:0 auto;
+  }
+  .crumb a:hover { color:var(--blue); }
+  .crumb .sep { color:var(--line); }
+  .crumb .here { color:var(--ink); }
+
+  /* HERO — facility title block */
+  .lhero { border-bottom:1px solid var(--line-ink); }
+  .lhero-top { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; border-bottom:1px solid var(--line); }
+  .lhero-top .cell {
+    padding:14px 28px; font-family:'Spline Sans Mono',monospace; font-size:0.64rem;
+    letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft);
+    border-right:1px solid var(--line); display:flex; flex-direction:column; gap:5px;
+    position:relative;
+  }
+  .lhero-top .cell:last-child { border-right:none; }
+  .lhero-top .cell:not(:last-child)::after {
+    content:""; position:absolute; right:-3px; top:50%; transform:translateY(-50%);
+    width:5px; height:5px; background:var(--blue); border-radius:50%;
+  }
+  .lhero-top .cell b { color:var(--ink); font-weight:600; font-size:0.74rem; }
+
+  .lhero-main { display:grid; grid-template-columns:1fr 1.15fr; }
+  .lhero-left {
+    padding:54px 48px; border-right:1px solid var(--line-ink);
+    display:flex; flex-direction:column; position:relative;
+  }
+  .lhero-left::after {
+    content:""; position:absolute; top:0; bottom:0; right:-1px; width:1px;
+    background-image:repeating-linear-gradient(to bottom, var(--line-ink) 0, var(--line-ink) 1px, transparent 1px, transparent 11px);
+  }
+  .lhero-kick { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:26px; }
+  .badge-open {
+    font-family:'Spline Sans Mono',monospace; font-size:0.6rem;
+    letter-spacing:0.1em; text-transform:uppercase;
+    background:var(--gold); color:var(--ink); padding:6px 11px;
+  }
+  .lhero-left h1 {
+    font-size:clamp(2.8rem,5vw,4.8rem); line-height:0.92;
+    letter-spacing:-0.035em; font-optical-sizing:auto;
+  }
+  .lhero-left h1 em { font-style:italic; color:var(--blue); }
+  .lhero-addr {
+    margin-top:24px; font-size:1rem; color:var(--ink-soft); line-height:1.6;
+  }
+  .lhero-addr .street { color:var(--ink); font-weight:600; }
+  .lhero-phone {
+    font-family:'Spline Sans Mono',monospace; font-size:1.05rem;
+    margin-top:14px; display:inline-flex; align-items:center; gap:9px;
+  }
+  .lhero-phone::before { content:""; width:6px; height:6px; background:var(--blue); border-radius:50%; }
+  .lhero-actions { display:flex; gap:12px; margin-top:auto; padding-top:40px; flex-wrap:wrap; }
+  .btn {
+    display:inline-flex; align-items:center; gap:12px;
+    font-family:'Spline Sans Mono',monospace; font-size:0.73rem;
+    letter-spacing:0.07em; text-transform:uppercase;
+    padding:16px 24px; cursor:pointer; transition:background .25s ease, transform .25s ease, color .25s ease;
+  }
+  .btn .arr { transition:transform .25s ease; }
+  .btn:hover .arr { transform:translateX(4px); }
+  .btn-primary { background:var(--blue); color:var(--paper); }
+  .btn-primary:hover { background:var(--ink); transform:translateY(-2px); }
+  .btn-ghost { border:1px solid var(--line-ink); color:var(--ink); }
+  .btn-ghost:hover { background:var(--ink); color:var(--paper); transform:translateY(-2px); }
+
+  .lhero-photo { position:relative; overflow:hidden; min-height:520px; background:var(--ink); }
+  .lhero-photo img { width:100%; height:100%; object-fit:cover; filter:grayscale(0.15) contrast(1.05); }
+  .lhero-photo .reg { position:absolute; width:18px; height:18px; pointer-events:none; z-index:3; }
+  .lhero-photo .reg::before, .lhero-photo .reg::after { content:""; position:absolute; background:var(--paper); }
+  .lhero-photo .reg::before { width:18px; height:1px; top:8px; }
+  .lhero-photo .reg::after { width:1px; height:18px; left:8px; }
+  .lhero-photo .reg.tl { top:18px; left:18px; }
+  .lhero-photo .reg.tr { top:18px; right:18px; }
+  .lhero-photo .pcap {
+    position:absolute; bottom:0; left:0; background:var(--paper);
+    border-top:1px solid var(--line-ink); border-right:1px solid var(--line-ink);
+    padding:14px 24px; z-index:3;
+  }
+  .lhero-photo .pcap::before { content:""; position:absolute; left:0; top:-1px; width:34px; height:3px; background:var(--blue); }
+  .lhero-photo .pcap .t { font-family:'Fraunces',serif; font-style:italic; font-size:1.04rem; }
+  .lhero-photo .pcap .m { font-family:'Spline Sans Mono',monospace; font-size:0.58rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-top:4px; }
+
+  /* SECTION LABEL */
+  .sec-label {
+    display:flex; align-items:baseline; justify-content:space-between;
+    padding:18px 40px; border-bottom:1px solid var(--line-ink);
+    background:var(--blue); color:var(--paper); position:relative;
+    clip-path:inset(0 100% 0 0); transition:clip-path .85s cubic-bezier(.16,1,.3,1);
+  }
+  .sec-label.scribed { clip-path:inset(0 0 0 0); }
+  .sec-label::before {
+    content:""; position:absolute; left:14px; top:50%;
+    width:9px; height:9px; transform:translateY(-50%);
+    background:
+      linear-gradient(var(--blue-light),var(--blue-light)) center/9px 1px no-repeat,
+      linear-gradient(var(--blue-light),var(--blue-light)) center/1px 9px no-repeat;
+  }
+  .sec-label .l { font-family:'Spline Sans Mono',monospace; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; padding-left:22px; }
+  .sec-label .r { font-family:'Spline Sans Mono',monospace; font-size:0.66rem; color:var(--blue-light); letter-spacing:0.06em; }
+
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  .reveal.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce) { .sec-label { clip-path:none; } .reveal { opacity:1; transform:none; } }
+
+  /* RESERVE + HOURS SPLIT */
+  .resv { display:grid; grid-template-columns:1.05fr 0.95fr; border-bottom:1px solid var(--line-ink); }
+  .resv-widget { padding:48px 40px; border-right:1px solid var(--line-ink); }
+  .resv-widget .acc { margin-bottom:18px; }
+  .resv-widget h2 { font-size:clamp(1.9rem,2.6vw,2.6rem); line-height:1; letter-spacing:-0.02em; }
+  .resv-widget h2 em { font-style:italic; color:var(--blue); }
+  .resv-widget p { font-size:0.92rem; color:var(--ink-soft); line-height:1.6; margin-top:14px; max-width:380px; }
+  .widget {
+    margin-top:26px; background:var(--card); border:1px solid var(--line-ink);
+  }
+  .widget-bar { background:var(--blue); color:var(--paper); display:flex; justify-content:space-between; align-items:center; padding:13px 20px; }
+  .widget-bar .wt { font-family:'Spline Sans Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; }
+  .widget-bar .wb { font-family:'Spline Sans Mono',monospace; font-size:0.56rem; background:var(--gold); color:var(--ink); padding:5px 9px; letter-spacing:0.08em; text-transform:uppercase; }
+  .widget-stage {
+    padding:38px 28px; min-height:240px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; gap:12px;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:22px 22px; background-position:center;
+  }
+  .widget-stage .fi {
+    width:46px; height:46px; border:1.5px solid var(--blue);
+    display:flex; align-items:center; justify-content:center; color:var(--blue); font-size:1.2rem;
+  }
+  .widget-stage .sl { font-family:'Fraunces',serif; font-style:italic; font-size:1.15rem; }
+  .widget-stage .sm { font-family:'Spline Sans Mono',monospace; font-size:0.62rem; color:var(--ink-soft); max-width:300px; line-height:1.6; letter-spacing:0.02em; }
+  .widget-foot { font-family:'Spline Sans Mono',monospace; font-size:0.58rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin-top:14px; text-align:center; }
+
+  /* hours panel */
+  .resv-hours { padding:48px 40px; background:var(--paper-2); display:flex; flex-direction:column; }
+  .resv-hours .acc { margin-bottom:22px; }
+  .hours-block { border-top:1px solid var(--line); }
+  .hours-block .hrow {
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:15px 0; border-bottom:1px solid var(--line);
+  }
+  .hours-block .hrow .hk { font-family:'Spline Sans Mono',monospace; font-size:0.66rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); }
+  .hours-block .hrow .hv { font-family:'Fraunces',serif; font-size:1.15rem; }
+  .hours-block .hrow .hv.accent { color:var(--blue); }
+  .hours-label {
+    font-family:'Spline Sans Mono',monospace; font-size:0.66rem;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-deep);
+    margin:24px 0 12px;
+  }
+  .access-note {
+    margin-top:auto; padding-top:24px;
+    font-size:0.88rem; color:var(--ink-soft); line-height:1.6;
+  }
+  .access-note b { color:var(--ink); font-weight:600; }
+
+  /* AMENITIES */
+  .amen-grid { display:grid; grid-template-columns:repeat(4,1fr); }
+  .amen-cell {
+    padding:32px 26px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+    transition:background .3s ease; position:relative;
+  }
+  .amen-cell:nth-child(4n) { border-right:none; }
+  .amen-cell:hover { background:var(--card); }
+  .amen-cell::before {
+    content:""; position:absolute; left:0; top:0; width:0; height:3px;
+    background:var(--blue); transition:width .3s cubic-bezier(.16,1,.3,1);
+  }
+  .amen-cell:hover::before { width:100%; }
+  .amen-cell .ax { font-family:'Spline Sans Mono',monospace; font-size:0.6rem; color:var(--gold-deep); letter-spacing:0.06em; }
+  .amen-cell .an { font-family:'Fraunces',serif; font-size:1.18rem; margin-top:12px; line-height:1.15; }
+  .amen-cell .ad { font-size:0.84rem; color:var(--ink-soft); line-height:1.55; margin-top:8px; }
+
+  /* MAP + DIRECTIONS */
+  .locate { display:grid; grid-template-columns:1.1fr 0.9fr; border-bottom:1px solid var(--line-ink); }
+  .map-frame {
+    border-right:1px solid var(--line-ink); position:relative; min-height:480px;
+    background:var(--card);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:30px 30px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .map-frame .reg { position:absolute; width:16px; height:16px; pointer-events:none; }
+  .map-frame .reg::before, .map-frame .reg::after { content:""; position:absolute; background:var(--blue); }
+  .map-frame .reg::before { width:16px; height:1px; top:7px; }
+  .map-frame .reg::after { width:1px; height:16px; left:7px; }
+  .map-frame .reg.tl { top:16px; left:16px; }
+  .map-frame .reg.tr { top:16px; right:16px; }
+  .map-frame .reg.bl { bottom:16px; left:16px; }
+  .map-frame .reg.br { bottom:16px; right:16px; }
+  .map-pin { text-align:center; display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .map-pin .mk {
+    width:54px; height:54px; border:2px solid var(--blue); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    position:relative; background:var(--paper);
+  }
+  .map-pin .mk::after {
+    content:""; width:9px; height:9px; background:var(--blue); border-radius:50%;
+  }
+  .map-pin .mk::before {
+    content:""; position:absolute; width:1px; height:90px;
+    background:repeating-linear-gradient(to bottom, var(--blue) 0 3px, transparent 3px 7px);
+    top:54px;
+  }
+  .map-pin .ml { font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem; }
+  .map-pin .mc { font-family:'Spline Sans Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); }
+  .map-note {
+    position:absolute; bottom:0; left:0; right:0;
+    background:var(--ink); color:var(--paper-2);
+    font-family:'Spline Sans Mono',monospace; font-size:0.58rem;
+    letter-spacing:0.06em; text-transform:uppercase;
+    padding:11px 20px; text-align:center;
+  }
+
+  .directions { padding:46px 38px; display:flex; flex-direction:column; }
+  .directions .acc { margin-bottom:20px; }
+  .directions h3 { font-size:1.7rem; letter-spacing:-0.02em; }
+  .dir-list { margin-top:22px; }
+  .dir-item { border-top:1px solid var(--line); padding:18px 0; }
+  .dir-item:last-child { border-bottom:1px solid var(--line); }
+  .dir-item .from {
+    font-family:'Spline Sans Mono',monospace; font-size:0.64rem;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--blue);
+    display:flex; align-items:center; gap:8px;
+  }
+  .dir-item .from::before { content:""; width:4px; height:4px; background:var(--blue); }
+  .dir-item .step { font-size:0.9rem; color:var(--ink-soft); line-height:1.6; margin-top:8px; }
+  .dir-cta {
+    margin-top:24px; align-self:flex-start;
+    display:inline-flex; align-items:center; gap:12px;
+    font-family:'Spline Sans Mono',monospace; font-size:0.72rem;
+    letter-spacing:0.07em; text-transform:uppercase;
+    background:var(--ink); color:var(--paper); padding:15px 24px;
+    transition:background .25s ease;
+  }
+  .dir-cta:hover { background:var(--blue); }
+
+  /* WHY / NEARBY */
+  .why { background:var(--ink); color:var(--paper); border-bottom:1px solid var(--line-ink); }
+  .why-grid { display:grid; grid-template-columns:1fr 1fr; }
+  .why-text { padding:60px 44px; border-right:1px solid rgba(198,164,88,0.3); }
+  .why-text .acc { color:var(--gold-light); }
+  .why-text .acc::before { background:var(--gold-light); }
+  .why-text h2 { font-size:clamp(1.9rem,3vw,2.9rem); line-height:1.02; letter-spacing:-0.02em; margin:20px 0 16px; }
+  .why-text h2 em { font-style:italic; color:var(--blue-light); }
+  .why-text p { color:var(--paper-2); line-height:1.7; font-size:0.96rem; max-width:420px; }
+  .nearby { display:flex; flex-direction:column; }
+  .nearby .nrow {
+    flex:1; padding:26px 40px; border-bottom:1px solid rgba(198,164,88,0.3);
+    display:flex; justify-content:space-between; align-items:center; gap:20px;
+  }
+  .nearby .nrow:last-child { border-bottom:none; }
+  .nearby .nrow .nn { font-family:'Fraunces',serif; font-size:1.3rem; }
+  .nearby .nrow .nd { font-family:'Spline Sans Mono',monospace; font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold-light); margin-top:4px; }
+  .nearby .nrow .ndist { font-family:'Spline Sans Mono',monospace; font-size:0.78rem; color:var(--paper-2); white-space:nowrap; }
+
+  /* CTA BAND */
+  .cta-band { background:var(--gold); text-align:center; padding:80px 40px; border-bottom:1px solid var(--line-ink); }
+  .cta-band .acc { color:var(--ink); justify-content:center; margin-bottom:20px; }
+  .cta-band .acc::before { background:var(--ink); }
+  .cta-band h2 { font-size:clamp(2.2rem,4.4vw,4rem); line-height:0.96; letter-spacing:-0.03em; max-width:760px; margin:0 auto; }
+  .cta-band h2 em { font-style:italic; }
+  .cta-band .row { display:flex; gap:12px; justify-content:center; margin-top:30px; flex-wrap:wrap; }
+  .cta-band .b-dark { background:var(--ink); color:var(--paper); }
+  .cta-band .b-dark:hover { background:var(--blue); transform:translateY(-2px); }
+  .cta-band .b-line { border:1px solid var(--ink); color:var(--ink); }
+  .cta-band .b-line:hover { background:var(--ink); color:var(--paper); transform:translateY(-2px); }
+
+  /* FOOTER */
+  footer { background:var(--ink); color:var(--paper-2); }
+  .foot-top { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; border-bottom:1px solid rgba(198,164,88,0.25); }
+  .foot-cell { padding:48px 32px; border-right:1px solid rgba(198,164,88,0.25); }
+  .foot-cell:last-child { border-right:none; }
+  .foot-cell.brandcell .nm { font-family:'Fraunces',serif; font-size:1.7rem; }
+  .foot-cell.brandcell .nm b { font-style:italic; font-weight:500; }
+  .foot-cell.brandcell .sb { font-family:'Spline Sans Mono',monospace; font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-light); margin:8px 0 18px; }
+  .foot-cell.brandcell p { font-size:0.88rem; line-height:1.6; color:var(--paper-2); max-width:290px; }
+  .foot-cell h4 { font-family:'Spline Sans Mono',monospace; font-size:0.64rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-light); margin-bottom:18px; }
+  .foot-cell a, .foot-cell .ln { display:block; font-size:0.88rem; margin-bottom:11px; color:var(--paper-2); transition:color .2s ease; }
+  .foot-cell a:hover { color:var(--gold-light); }
+  .foot-bot { display:flex; justify-content:space-between; padding:22px 32px; font-family:'Spline Sans Mono',monospace; font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; color:rgba(223,225,222,0.55); }
+  .foot-bot .socs { display:flex; gap:22px; }
+  .foot-bot a:hover { color:var(--gold-light); }
+
+  /* RESPONSIVE */
+  @media (max-width:1080px) {
+    .lhero-top { grid-template-columns:1fr 1fr; }
+    .lhero-top .cell:nth-child(2)::after { display:none; }
+    .lhero-top .cell:nth-child(1), .lhero-top .cell:nth-child(2) { border-bottom:1px solid var(--line); }
+    .lhero-main { grid-template-columns:1fr; }
+    .lhero-left { border-right:none; }
+    .lhero-left::after { display:none; }
+    .lhero-photo { min-height:360px; border-top:1px solid var(--line-ink); }
+    .resv { grid-template-columns:1fr; }
+    .resv-widget { border-right:none; border-bottom:1px solid var(--line-ink); }
+    .amen-grid { grid-template-columns:repeat(2,1fr); }
+    .amen-cell:nth-child(4n) { border-right:1px solid var(--line); }
+    .amen-cell:nth-child(2n) { border-right:none; }
+    .locate { grid-template-columns:1fr; }
+    .map-frame { border-right:none; border-bottom:1px solid var(--line-ink); }
+    .why-grid { grid-template-columns:1fr; }
+    .why-text { border-right:none; border-bottom:1px solid rgba(198,164,88,0.3); }
+    .foot-top { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:680px) {
+    .nav-links { display:none; }
+    .menu-btn { display:flex; align-items:center; padding:0 22px; border-left:1px solid var(--line); background:none; cursor:pointer; }
+    .crumb { padding:13px 22px; flex-wrap:wrap; }
+    .lhero-top { grid-template-columns:1fr; }
+    .lhero-top .cell { border-right:none; border-bottom:1px solid var(--line); }
+    .lhero-top .cell::after { display:none; }
+    .lhero-left { padding:40px 22px; }
+    .resv-widget, .resv-hours, .directions { padding:40px 22px; }
+    .amen-grid { grid-template-columns:1fr; }
+    .amen-cell { border-right:none !important; }
+    .why-text { padding:44px 22px; }
+    .nearby .nrow { padding:22px 22px; }
+    .cta-band { padding:60px 22px; }
+    .foot-top { grid-template-columns:1fr; }
+    .foot-cell { border-right:none; border-bottom:1px solid rgba(198,164,88,0.25); }
+    .foot-bot { flex-direction:column; gap:12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topline">
+  <div class="topline-track">
+    <span>Facility 02 — 45th Street&nbsp;&nbsp;Now Open&nbsp;&nbsp;Climate Controlled&nbsp;&nbsp;Drive-Up Access&nbsp;&nbsp;24/7 Gate Access&nbsp;&nbsp;Honest Pricing — No Surprise Spikes</span>
+    <span>Facility 02 — 45th Street&nbsp;&nbsp;Now Open&nbsp;&nbsp;Climate Controlled&nbsp;&nbsp;Drive-Up Access&nbsp;&nbsp;24/7 Gate Access&nbsp;&nbsp;Honest Pricing — No Surprise Spikes</span>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <span class="name">Artif<b>a</b>cts</span>
+      <span class="sub">Self Storage / Rogers AR</span>
+    </a>
+    <div class="nav-links">
+      <a href="#" class="active">Locations</a>
+      <a href="#">Boat &amp; RV</a>
+      <a href="#">Sizes</a>
+      <a href="#">Reviews</a>
+      <a href="#reserve" class="cta">Reserve →</a>
+    </div>
+    <button class="menu-btn" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 22 22" stroke="#15171c" stroke-width="1.4">
+        <line x1="2" y1="7" x2="20" y2="7"/><line x1="2" y1="15" x2="20" y2="15"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="#">Index</a>
+  <span class="sep">/</span>
+  <a href="#">The Holdings</a>
+  <span class="sep">/</span>
+  <span class="here">02 — 45th Street</span>
+</div>
+
+<!-- HERO -->
+<header class="lhero">
+  <div class="lhero-top">
+    <div class="cell"><span>Facility</span><b>No. 02</b></div>
+    <div class="cell"><span>Accession</span><b>AS·S-325</b></div>
+    <div class="cell"><span>Status</span><b>Now Open</b></div>
+    <div class="cell"><span>Access</span><b>24 / 7 / 365</b></div>
+  </div>
+  <div class="lhero-main">
+    <div class="lhero-left">
+      <div class="lhero-kick reveal">
+        <span class="acc">AS·S-325 — Facility Entry</span>
+        <span class="badge-open">Now Open</span>
+      </div>
+      <h1 class="reveal" style="transition-delay:.06s">
+        45th Street<br><em>Facility.</em>
+      </h1>
+      <div class="lhero-addr reveal" style="transition-delay:.12s">
+        <span class="street">325 S. 45th Street</span><br>
+        Rogers, Arkansas 72756
+        <div class="lhero-phone"><a href="tel:4793339177">(479) 333-9177</a></div>
+      </div>
+      <div class="lhero-actions reveal" style="transition-delay:.18s">
+        <a href="#reserve" class="btn btn-primary">Reserve a Unit <span class="arr">→</span></a>
+        <a href="#locate" class="btn btn-ghost">Get Directions</a>
+      </div>
+    </div>
+    <div class="lhero-photo reveal" style="transition-delay:.1s">
+      <img src="https://uploads.website.storedge.com/7957be7a-7d25-4f0d-ad22-40229ca92b95/dc_photography-13_08072025110246067.jpg" alt="Artifacts Self Storage 45th Street drone view" />
+      <span class="reg tl"></span>
+      <span class="reg tr"></span>
+      <div class="pcap">
+        <div class="t">Plate II — 45th Street Facility</div>
+        <div class="m">Brand-New / Climate Controlled</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- RESERVE + HOURS -->
+<section class="sec-label" id="reserve">
+  <span class="l">§ A — Acquisition &amp; Access</span>
+  <span class="r">Reserve a unit / facility hours</span>
+</section>
+<section class="resv">
+  <div class="resv-widget">
+    <span class="acc">AS·S-325 / 01 — Reserve</span>
+    <h2>Claim a unit at<br><em>45th Street.</em></h2>
+    <p>
+      Browse live availability and lock in your space online. Reserve now, rent
+      when you're ready — at the honest rate we quote, with no surprise spikes.
+    </p>
+    <div class="widget">
+      <div class="widget-bar">
+        <span class="wt">Live Availability — 45th St</span>
+        <span class="wb">50% Off · 3 Months</span>
+      </div>
+      <div class="widget-stage">
+        <div class="fi">▦</div>
+        <div class="sl">45th Street — Climate Controlled</div>
+        <div class="sm">The Storedge live-inventory widget for this facility mounts in this frame. In the Next.js build, the embed loads here.</div>
+      </div>
+    </div>
+    <div class="widget-foot">Inventory &amp; checkout powered by our management system</div>
+  </div>
+  <div class="resv-hours">
+    <span class="acc">AS·S-325 / 02 — Hours</span>
+    <div class="hours-label">Office Hours</div>
+    <div class="hours-block">
+      <div class="hrow"><span class="hk">Sunday — Saturday</span><span class="hv">9:00 AM – 5:00 PM</span></div>
+    </div>
+    <div class="hours-label">Gate Access Hours</div>
+    <div class="hours-block">
+      <div class="hrow"><span class="hk">Sunday — Saturday</span><span class="hv accent">Open 24 Hours</span></div>
+    </div>
+    <p class="access-note">
+      <b>Round-the-clock access, every day of the year.</b> Stop in during office
+      hours to meet our on-site management — the people who'll actually answer
+      when you call.
+    </p>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="sec-label">
+  <span class="l">§ B — Facility Specification</span>
+  <span class="r">Twelve catalogued amenities</span>
+</section>
+<section class="amen">
+  <div class="amen-grid">
+    <div class="amen-cell"><div class="ax">01</div><div class="an">Climate Controlled</div><div class="ad">Temperature-managed units that protect against Arkansas heat and humidity.</div></div>
+    <div class="amen-cell"><div class="ax">02</div><div class="an">24-Hour Access</div><div class="ad">Secure gate access any hour, any day — your schedule, not ours.</div></div>
+    <div class="amen-cell"><div class="ax">03</div><div class="an">Drive-Up Units</div><div class="ad">Pull right to your door for fast, effortless loading and unloading.</div></div>
+    <div class="amen-cell"><div class="ax">04</div><div class="an">Elevator Access</div><div class="ad">Easy elevator service to upper-floor units for larger moves.</div></div>
+    <div class="amen-cell"><div class="ax">05</div><div class="an">Security Cameras</div><div class="ad">24/7 camera coverage across a well-lit, monitored facility.</div></div>
+    <div class="amen-cell"><div class="ax">06</div><div class="an">Secure Units</div><div class="ad">Individually secured spaces with controlled facility access.</div></div>
+    <div class="amen-cell"><div class="ax">07</div><div class="an">Ground Floor</div><div class="ad">Ground-level units available for the simplest possible access.</div></div>
+    <div class="amen-cell"><div class="ax">08</div><div class="an">Interior Storage</div><div class="ad">Fully enclosed interior units, sheltered from the elements.</div></div>
+    <div class="amen-cell"><div class="ax">09</div><div class="an">Dollies &amp; Handcarts</div><div class="ad">Moving equipment on hand to make your move-in painless.</div></div>
+    <div class="amen-cell"><div class="ax">10</div><div class="an">Boxes &amp; Supplies</div><div class="ad">Packing materials available on-site so you can pack as you go.</div></div>
+    <div class="amen-cell"><div class="ax">11</div><div class="an">Truck Rental</div><div class="ad">Moving truck rental available to handle the heavy haul.</div></div>
+    <div class="amen-cell"><div class="ax">12</div><div class="an">Online Bill Pay</div><div class="ad">Manage and pay your account online, anytime, in a few clicks.</div></div>
+  </div>
+</section>
+
+<!-- MAP + DIRECTIONS -->
+<section class="sec-label" id="locate">
+  <span class="l">§ C — Location &amp; Approach</span>
+  <span class="r">325 S. 45th Street, Rogers AR</span>
+</section>
+<section class="locate">
+  <div class="map-frame">
+    <span class="reg tl"></span><span class="reg tr"></span>
+    <span class="reg bl"></span><span class="reg br"></span>
+    <div class="map-pin">
+      <div class="mk"></div>
+      <div>
+        <div class="ml">45th Street Facility</div>
+        <div class="mc">36.31° N · Rogers, Arkansas</div>
+      </div>
+    </div>
+    <div class="map-note">Interactive map mounts here — minutes from Interstate 49</div>
+  </div>
+  <div class="directions">
+    <span class="acc">AS·S-325 / 03 — Approach</span>
+    <h3>Driving directions.</h3>
+    <div class="dir-list">
+      <div class="dir-item">
+        <div class="from">From Bentonville</div>
+        <div class="step">Take I-49 South toward Fayetteville for roughly 8 miles. Exit 85 toward Rogers, merge onto W Walnut Street, then turn onto S. 45th Street — the facility is about 1.2 miles down on your left.</div>
+      </div>
+      <div class="dir-item">
+        <div class="from">From Springdale</div>
+        <div class="step">Head north on US-71B, merge onto I-49 North for about 10 miles, take Exit 85, then follow W Walnut Street east to S. 45th Street.</div>
+      </div>
+      <div class="dir-item">
+        <div class="from">From Fayetteville</div>
+        <div class="step">Take I-49 North toward Rogers for roughly 20 miles, exit at 85, and continue via W Walnut Street to S. 45th Street.</div>
+      </div>
+    </div>
+    <a href="https://www.google.com/maps?q=325+S.+45th+Street+Rogers+AR+72756" class="dir-cta">Open in Google Maps →</a>
+  </div>
+</section>
+
+<!-- WHY / NEARBY -->
+<section class="sec-label">
+  <span class="l">§ D — In the Neighborhood</span>
+  <span class="r">Why store at 45th Street</span>
+</section>
+<section class="why">
+  <div class="why-grid">
+    <div class="why-text">
+      <span class="acc">AS·S-325 / 04 — Position</span>
+      <h2>Right in the<br>heart of <em>Rogers.</em></h2>
+      <p>
+        Our 45th Street facility is brand-new and built for the way Northwest
+        Arkansas actually moves — minutes from I-49 and easy to reach from
+        downtown Rogers, Bentonville, and Fayetteville alike. Swing by on your way
+        to shop, work, or the lake.
+      </p>
+    </div>
+    <div class="nearby">
+      <div class="nrow">
+        <div><div class="nn">Pinnacle Hills Promenade</div><div class="nd">Shopping &amp; Dining</div></div>
+        <div class="ndist">~6 min</div>
+      </div>
+      <div class="nrow">
+        <div><div class="nn">Mercy Hospital NWA</div><div class="nd">Medical Campus</div></div>
+        <div class="ndist">~7 min</div>
+      </div>
+      <div class="nrow">
+        <div><div class="nn">Interstate 49</div><div class="nd">Highway Access</div></div>
+        <div class="ndist">~4 min</div>
+      </div>
+      <div class="nrow">
+        <div><div class="nn">Beaver Lake</div><div class="nd">Recreation</div></div>
+        <div class="ndist">~15 min</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <span class="acc">AS·S-325 — Closing Entry</span>
+  <h2>Reserve your space at<br><em>45th Street</em> today.</h2>
+  <div class="row">
+    <a href="#reserve" class="btn b-dark">Reserve a Unit <span class="arr">→</span></a>
+    <a href="tel:4793339177" class="btn b-line">Call (479) 333-9177</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-cell brandcell">
+      <div class="nm">Artif<b>a</b>cts</div>
+      <div class="sb">Self Storage / Rogers AR</div>
+      <p>A family-owned archive for the things you keep — climate-controlled units, enclosed boat &amp; RV bays, and honestly priced storage across three Rogers facilities.</p>
+    </div>
+    <div class="foot-cell">
+      <h4>The Holdings</h4>
+      <a href="#">01 — Nursery Road</a>
+      <a href="#">02 — 45th Street</a>
+      <a href="#">03 — 1st Street</a>
+      <a href="#reserve">Reserve a Unit</a>
+    </div>
+    <div class="foot-cell">
+      <h4>Catalogue</h4>
+      <a href="#">Sizes &amp; Pricing</a>
+      <a href="#">Boat &amp; RV Storage</a>
+      <a href="#">Reviews</a>
+      <a href="#">FAQs</a>
+      <a href="#">Pay Online</a>
+    </div>
+    <div class="foot-cell">
+      <h4>This Facility</h4>
+      <a href="tel:4793339177">(479) 333-9177</a>
+      <span class="ln">325 S. 45th Street</span>
+      <span class="ln">Office — Daily 9–5 / Access 24/7</span>
+      <a href="#locate">Get Directions</a>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>© 2026 Artifacts Self Storage — All sizes approximate, some restrictions apply</span>
+    <div class="socs">
+      <a href="https://www.facebook.com/artifactsselfstorage">Facebook</a>
+      <a href="https://www.instagram.com/artifactsselfstorage/">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  const sio = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('scribed'); sio.unobserve(e.target); } });
+  }, { threshold:0.6 });
+  document.querySelectorAll('.sec-label').forEach(el => sio.observe(el));
+</script>
+
+</body>
+</html>

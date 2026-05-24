@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blueprint — Proposed Palette</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400..500&family=Spline+Sans+Mono:wght@400;500&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Archivo',sans-serif; background:#dfe1de; color:#15171c;
+    -webkit-font-smoothing:antialiased; padding:48px 32px;
+  }
+  h1 { font-family:'Fraunces',serif; font-weight:400; font-size:2.4rem; letter-spacing:-0.02em; }
+  .sub { font-family:'Spline Sans Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:#2c4a6e; margin-top:8px; }
+  .wrap { max-width:980px; margin:0 auto; }
+  .row { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-top:32px; }
+  .sw { border:1px solid #15171c; }
+  .sw .chip { height:110px; }
+  .sw .meta { padding:11px 12px; background:#eef0ec; border-top:1px solid #15171c; }
+  .sw .meta .nm { font-family:'Fraunces',serif; font-size:0.95rem; }
+  .sw .meta .hex { font-family:'Spline Sans Mono',monospace; font-size:0.6rem; color:#5a5f57; margin-top:3px; }
+  .demo { margin-top:48px; border:1px solid #15171c; }
+  .demo-bar { background:#15171c; color:#eef0ec; padding:14px 22px; font-family:'Spline Sans Mono',monospace; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; display:flex; justify-content:space-between; }
+  .demo-bar .g { color:#c8a85e; }
+  .demo-body {
+    padding:40px 36px; background:#eef0ec;
+    background-image:
+      linear-gradient(rgba(44,74,110,0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(44,74,110,0.10) 1px, transparent 1px);
+    background-size:30px 30px;
+  }
+  .demo-body .acc { font-family:'Spline Sans Mono',monospace; font-size:0.66rem; letter-spacing:0.08em; color:#2c4a6e; display:inline-flex; align-items:center; gap:7px; }
+  .demo-body .acc::before { content:""; width:5px; height:5px; background:#b08a32; border-radius:50%; }
+  .demo-body h2 { font-family:'Fraunces',serif; font-weight:400; font-size:2.6rem; letter-spacing:-0.02em; margin:16px 0; line-height:1; }
+  .demo-body h2 em { font-style:italic; color:#2c4a6e; }
+  .demo-body p { color:#5a5f57; max-width:440px; line-height:1.6; font-size:0.95rem; background:#eef0ec; }
+  .demo-body .tag { display:inline-block; margin-top:18px; font-family:'Spline Sans Mono',monospace; font-size:0.64rem; letter-spacing:0.08em; text-transform:uppercase; color:#b08a32; }
+  .btns { margin-top:26px; display:flex; gap:12px; flex-wrap:wrap; }
+  .b1 { background:#15171c; color:#eef0ec; padding:14px 24px; font-family:'Spline Sans Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; }
+  .b2 { background:#b08a32; color:#15171c; padding:14px 24px; font-family:'Spline Sans Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; }
+  .b3 { background:#2c4a6e; color:#eef0ec; padding:14px 24px; font-family:'Spline Sans Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; }
+  .b4 { border:1px solid #15171c; padding:14px 24px; font-family:'Spline Sans Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; }
+  .darkdemo { padding:40px 36px; background:#15171c; color:#dfe1de; }
+  .darkdemo .acc { font-family:'Spline Sans Mono',monospace; font-size:0.66rem; color:#c8a85e; }
+  .darkdemo h2 { font-family:'Fraunces',serif; font-weight:400; font-size:2.4rem; margin:14px 0; line-height:1; }
+  .darkdemo h2 em { font-style:italic; color:#7fa3cc; }
+  .darkdemo p { color:#aeb3ad; max-width:420px; line-height:1.6; font-size:0.95rem; }
+  .note { margin-top:36px; font-size:0.88rem; color:#5a5f57; line-height:1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Blueprint</h1>
+  <div class="sub">Proposed Palette / Artifacts Self Storage</div>
+
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:#dfe1de"></div><div class="meta"><div class="nm">Slate</div><div class="hex">#DFE1DE — ground</div></div></div>
+    <div class="sw"><div class="chip" style="background:#eef0ec"></div><div class="meta"><div class="nm">Drafting</div><div class="hex">#EEF0EC — surfaces</div></div></div>
+    <div class="sw"><div class="chip" style="background:#15171c"></div><div class="meta"><div class="nm">Ink</div><div class="hex">#15171C — structure</div></div></div>
+    <div class="sw"><div class="chip" style="background:#2c4a6e"></div><div class="meta"><div class="nm">Draft Blue</div><div class="hex">#2C4A6E — accent</div></div></div>
+    <div class="sw"><div class="chip" style="background:#b08a32"></div><div class="meta"><div class="nm">Brass</div><div class="hex">#B08A32 — warmth</div></div></div>
+    <div class="sw"><div class="chip" style="background:#7fa3cc"></div><div class="meta"><div class="nm">Cyanotype</div><div class="hex">#7FA3CC — on dark</div></div></div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-bar"><span>§ 02 — The Holdings</span><span class="g">Blueprint / live preview</span></div>
+    <div class="demo-body">
+      <span class="acc">AS·002 — Statement</span>
+      <h2>A complete<br>index of <em>space.</em></h2>
+      <p>The ground is now a cool drafting slate, printed with a faint grid — the page itself reads as architectural paper. Brass holds the warmth so it never goes clinical.</p>
+      <div class="tag">Brass · the warm note against the cool field</div>
+      <div class="btns">
+        <span class="b1">Reserve →</span>
+        <span class="b2">View Entry</span>
+        <span class="b3">Draft Blue</span>
+        <span class="b4">Ask Us</span>
+      </div>
+    </div>
+    <div class="darkdemo">
+      <span class="acc">AS·003 — On Ink</span>
+      <h2>Room for the<br><em>weekend.</em></h2>
+      <p>On ink, draft blue lifts to a cyanotype glow and brass stays warm beside it — the dark sections feel like a blueprint reversed out.</p>
+    </div>
+  </div>
+
+  <p class="note">
+    Blueprint trades the warm archive for a drafting-room feel: cool slate ground with a faint printed grid, ink structure, a deep architectural blue as the accent, and brass carrying the warmth so it never turns clinical. Most distinctive of the three directions — very few storage sites look like this — and it makes the technical catalogue detailing sing. If this is the one, I'll roll it across the home page and size guide.
+  </p>
+</div>
+</body>
+</html>
