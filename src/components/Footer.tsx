@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LOCATIONS } from "@/lib/locations";
+import { ReserveTrigger } from "./reserve/ReserveTrigger";
 
 type CorrespondenceCell =
   | { kind: "default" }
@@ -67,7 +68,9 @@ export function Footer({
               {String(i + 1).padStart(2, "0")} · {loc.name}
             </Link>
           ))}
-          <Link href="/reserve">Reserve a Unit</Link>
+          <ReserveTrigger className="foot-reserve">
+            Reserve a Unit
+          </ReserveTrigger>
         </div>
         <div className="foot-cell">
           <h4>Catalogue</h4>
@@ -89,7 +92,9 @@ export function Footer({
             <a href="tel:+14793726362">(479) 372-6362</a>
             <span className="ln">Office, Mon–Fri 9–5</span>
             <span className="ln">Sat 9–2 / Access 24/7</span>
-            <Link href="/reserve">Contact Us</Link>
+            <ReserveTrigger className="foot-reserve">
+              Contact &amp; Reserve
+            </ReserveTrigger>
           </div>
         ) : (
           <div className="foot-cell">

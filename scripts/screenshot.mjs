@@ -64,6 +64,36 @@ for (const route of targets) {
     });
     await new Promise((r) => setTimeout(r, 600));
   }
+  // Force-open the reservation modal when RESERVE_OPEN=1. Optionally
+  // jump to a step (facility/size/confirm) by clicking through.
+  if (process.env.RESERVE_OPEN) {
+    await page.evaluate(() => {
+      // Trigger any reserve CTA. The nav has a stable .cta selector.
+      const btn = document.querySelector(".nav-links .cta") ||
+                  document.querySelector(".hero-cta") ||
+                  document.querySelector(".cta");
+      if (btn) btn.click();
+    });
+    await new Promise((r) => setTimeout(r, 500));
+    if (process.env.RESERVE_STEP === "size") {
+      await page.evaluate(() => {
+        const first = document.querySelector(".resv-facility");
+        if (first) first.click();
+      });
+      await new Promise((r) => setTimeout(r, 400));
+    } else if (process.env.RESERVE_STEP === "confirm") {
+      await page.evaluate(() => {
+        const f = document.querySelector(".resv-facility");
+        if (f) f.click();
+      });
+      await new Promise((r) => setTimeout(r, 300));
+      await page.evaluate(() => {
+        const s = document.querySelector(".resv-size:not(:disabled)");
+        if (s) s.click();
+      });
+      await new Promise((r) => setTimeout(r, 400));
+    }
+  }
   await new Promise((r) => setTimeout(r, 400));
   const slug = route === "/" ? "home" : route.replace(/^\//, "").replace(/\//g, "-");
   const suffix = mobile ? ".mobile" : "";

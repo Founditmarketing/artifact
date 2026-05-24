@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { UNITS, DEFAULT_UNIT_INDEX } from "@/lib/units";
 import { SectionLabel } from "@/components/SectionLabel";
+import { ReserveTrigger } from "@/components/reserve/ReserveTrigger";
 
 const PX_PER_FT = 9;
 const CHIP_MAX = 38; // px. 30 ft maps to this in the rail thumbnail.
@@ -96,9 +97,9 @@ export function SizeGuide() {
                 </div>
               </div>
               <div className="plate-cta">
-                <a href="/reserve" className="btn-rent">
+                <ReserveTrigger className="btn-rent">
                   Reserve This Unit →
-                </a>
+                </ReserveTrigger>
                 <a href="tel:+14793726362" className="btn-call">
                   Ask Us
                 </a>

@@ -2186,6 +2186,653 @@ a {
 }
 
 /* =========================================================================
+   RESERVATION MODAL — global 3-step reservation wizard
+   Mounted in root layout via <ReservationProvider>. Any Reserve CTA
+   on the site routes through useReservation().open().
+   ========================================================================= */
+.resv-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(21, 23, 28, 0.62);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: resv-bg-in 0.22s var(--ease-out-expo) both;
+}
+@keyframes resv-bg-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.resv-modal {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line-ink);
+  width: 100%;
+  max-width: 760px;
+  max-height: calc(100dvh - 48px);
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  animation: resv-card-in 0.36s var(--ease-out-expo) both;
+  overflow: hidden;
+}
+@keyframes resv-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.resv-modal:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -3px;
+}
+
+/* Header */
+.resv-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 22px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.resv-head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+.resv-acc {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.resv-acc::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.resv-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  font-variation-settings: "opsz" 48, "SOFT" 25;
+  text-wrap: balance;
+}
+.resv-title em {
+  font-style: italic;
+  color: var(--blue);
+}
+.resv-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.25s var(--ease-out-expo),
+    color 0.25s var(--ease-out-expo),
+    border-color 0.25s var(--ease-out-expo);
+}
+.resv-close:hover,
+.resv-close:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* Stepper */
+.resv-stepper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-2);
+}
+.resv-stepper-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-right: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  position: relative;
+}
+.resv-stepper-item:last-child {
+  border-right: none;
+}
+.resv-stepper-num {
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  color: var(--gold-ink);
+}
+.resv-stepper-item.is-active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.resv-stepper-item.is-active .resv-stepper-num {
+  color: var(--gold-light);
+}
+.resv-stepper-item.is-done {
+  color: var(--ink);
+}
+.resv-stepper-item.is-done .resv-stepper-num {
+  color: var(--gold-ink);
+}
+.resv-stepper-item.is-done::after {
+  content: "✓";
+  margin-left: auto;
+  color: var(--blue);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+}
+
+/* Body — scrolls when content overflows */
+.resv-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--paper);
+}
+
+/* Step 1 — Facility picker */
+.resv-facility-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.resv-facility-list li {
+  border-bottom: 1px solid var(--line);
+}
+.resv-facility-list li:last-child {
+  border-bottom: none;
+}
+.resv-facility {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 20px 22px;
+  background: var(--paper);
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  font: inherit;
+  transition: background 0.25s var(--ease-out-expo),
+    color 0.25s var(--ease-out-expo);
+  min-height: 64px;
+}
+.resv-facility:hover,
+.resv-facility:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+.resv-facility-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--gold-ink);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.resv-facility:hover .resv-facility-num,
+.resv-facility:focus-visible .resv-facility-num {
+  color: var(--gold-light);
+}
+.resv-facility-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.resv-facility-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.resv-facility-tag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.resv-facility:hover .resv-facility-tag,
+.resv-facility:focus-visible .resv-facility-tag {
+  color: var(--paper-2);
+}
+.resv-facility-addr {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.resv-facility:hover .resv-facility-addr,
+.resv-facility:focus-visible .resv-facility-addr {
+  color: var(--paper-2);
+}
+.resv-facility-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  text-align: right;
+}
+.resv-facility-from {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--gold-ink);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.resv-facility:hover .resv-facility-from,
+.resv-facility:focus-visible .resv-facility-from {
+  color: var(--gold-light);
+}
+.resv-facility-arr {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  transition: transform 0.25s var(--ease-out-expo);
+}
+.resv-facility:hover .resv-facility-arr,
+.resv-facility:focus-visible .resv-facility-arr {
+  transform: translateX(5px);
+}
+
+/* Step 2 — Context bar (which facility) + size grid */
+.resv-context {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-2);
+}
+.resv-context-k {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.resv-context-v {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: -0.015em;
+  flex: 1;
+}
+.resv-context-change {
+  background: none;
+  border: 1px solid var(--line-ink);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: background 0.25s var(--ease-out-expo),
+    color 0.25s var(--ease-out-expo);
+}
+.resv-context-change:hover,
+.resv-context-change:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.resv-size-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+}
+.resv-size {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  row-gap: 2px;
+  background: var(--paper);
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  font: inherit;
+  padding: 16px 18px;
+  width: 100%;
+  transition: background 0.25s var(--ease-out-expo),
+    color 0.25s var(--ease-out-expo);
+  min-height: 84px;
+}
+.resv-size:hover,
+.resv-size:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+.resv-size:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.resv-size:disabled:hover,
+.resv-size:disabled:focus-visible {
+  background: var(--paper);
+  color: var(--ink);
+}
+.resv-size-dot {
+  grid-column: 1;
+  grid-row: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  align-self: start;
+}
+.resv-size-open .resv-size-dot {
+  background: var(--blue);
+}
+.resv-size-low .resv-size-dot {
+  background: var(--gold);
+}
+.resv-size-wait .resv-size-dot {
+  background: var(--ink);
+}
+.resv-size-name {
+  grid-column: 2;
+  grid-row: 1;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.resv-size-state {
+  grid-column: 2;
+  grid-row: 2;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.resv-size:hover .resv-size-state,
+.resv-size:focus-visible .resv-size-state {
+  color: var(--paper-2);
+}
+.resv-size-from {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: center;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--gold-ink);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.resv-size:hover .resv-size-from,
+.resv-size:focus-visible .resv-size-from {
+  color: var(--gold-light);
+}
+
+/* Step 3 — Confirm */
+.resv-confirm {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.resv-summary {
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.resv-summary-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+}
+.resv-summary-row dt {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.resv-summary-row dd {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.resv-summary-price dd {
+  color: var(--gold-ink);
+  font-size: 1.6rem;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+.resv-confirm-actions {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  border: 1px solid var(--line-ink);
+}
+.resv-confirm-primary {
+  background: var(--blue);
+  color: var(--paper);
+  padding: 18px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  transition: background 0.25s var(--ease-out-expo);
+}
+.resv-confirm-primary:hover,
+.resv-confirm-primary:focus-visible {
+  background: var(--ink);
+}
+.resv-confirm-primary .arr {
+  transition: transform 0.25s var(--ease-out-expo);
+}
+.resv-confirm-primary:hover .arr,
+.resv-confirm-primary:focus-visible .arr {
+  transform: translateX(4px);
+}
+.resv-confirm-secondary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 14px 18px;
+  background: var(--paper);
+  border-left: 1px solid var(--line-ink);
+  min-height: 56px;
+  transition: background 0.25s var(--ease-out-expo);
+}
+.resv-confirm-secondary:hover,
+.resv-confirm-secondary:focus-visible {
+  background: var(--card);
+}
+.resv-confirm-secondary-k {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.resv-confirm-secondary-v {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.resv-promise {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 50ch;
+}
+.resv-promise a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--gold);
+  font-style: normal;
+  transition: color 0.25s var(--ease-out-expo),
+    border-color 0.25s var(--ease-out-expo);
+}
+.resv-promise a:hover {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+}
+
+/* Footer */
+.resv-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 22px;
+  border-top: 1px solid var(--line);
+  background: var(--paper-2);
+}
+.resv-back {
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 8px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.25s var(--ease-out-expo);
+}
+.resv-back:hover,
+.resv-back:focus-visible {
+  color: var(--blue);
+}
+.resv-foot-spacer {
+  display: inline-block;
+}
+.resv-foot-trace {
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+  text-align: right;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Mobile: full sheet sliding up from bottom */
+@media (max-width: 680px) {
+  .resv-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .resv-modal {
+    max-width: 100%;
+    max-height: 92dvh;
+    animation: resv-sheet-in 0.36s var(--ease-out-expo) both;
+  }
+  @keyframes resv-sheet-in {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  .resv-head {
+    padding: 18px 18px 14px;
+  }
+  .resv-stepper-item {
+    padding: 10px 12px;
+    font-size: 0.55rem;
+    gap: 8px;
+  }
+  .resv-stepper-item.is-done::after {
+    display: none;
+  }
+  .resv-facility {
+    grid-template-columns: 40px 1fr;
+    padding: 18px 18px;
+    gap: 14px;
+  }
+  .resv-facility-meta {
+    grid-column: 2;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+  }
+  .resv-size-list {
+    grid-template-columns: 1fr;
+  }
+  .resv-summary-row {
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+  }
+  .resv-confirm-actions {
+    grid-template-columns: 1fr;
+  }
+  .resv-confirm-secondary {
+    border-left: none;
+    border-top: 1px solid var(--line-ink);
+  }
+  .resv-confirm {
+    padding: 16px 18px 20px;
+  }
+  .resv-foot {
+    padding: 10px 18px;
+  }
+}
+
+/* =========================================================================
    RESERVE FLOW — dedicated /reserve page
    Distinct from the home-page ReserveSection: no editorial chrome at
    the top, the live-availability widget is the first thing the user
@@ -3593,26 +4240,37 @@ a {
   display: flex;
   flex-direction: column;
 }
-.help-side a {
+.help-side > a,
+.help-side > button.help-side-cta {
   flex: 1;
   padding: 38px 40px;
+  border: none;
   border-bottom: 1px solid rgba(198, 164, 88, 0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  width: 100%;
   transition: background 0.25s var(--ease-out-expo);
 }
-.help-side a:last-child {
+.help-side > a:last-child,
+.help-side > button.help-side-cta:last-child {
   border-bottom: none;
 }
-.help-side a:hover {
+.help-side > a:hover,
+.help-side > button.help-side-cta:hover,
+.help-side > button.help-side-cta:focus-visible {
   background: rgba(198, 164, 88, 0.08);
 }
-.help-side a .hl {
+.help-side .hl {
   font-family: var(--font-display);
   font-size: 1.4rem;
 }
-.help-side a .hm {
+.help-side .hm {
   font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.06em;
@@ -3620,11 +4278,13 @@ a {
   color: var(--gold-light);
   margin-top: 4px;
 }
-.help-side a .harr {
+.help-side .harr {
   font-family: var(--font-mono);
   transition: transform 0.25s var(--ease-out-expo);
 }
-.help-side a:hover .harr {
+.help-side > a:hover .harr,
+.help-side > button.help-side-cta:hover .harr,
+.help-side > button.help-side-cta:focus-visible .harr {
   transform: translateX(5px);
 }
 

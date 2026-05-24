@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
+import { ReserveTrigger } from "@/components/reserve/ReserveTrigger";
 
 export function Closing() {
   return (
@@ -14,9 +14,9 @@ export function Closing() {
         </>
       </Reveal>
       <Reveal delay={0.12}>
-        <Link href="/reserve" className="cta">
+        <ReserveTrigger className="cta">
           Reserve Your Unit <span className="arr">→</span>
-        </Link>
+        </ReserveTrigger>
       </Reveal>
     </section>
   );

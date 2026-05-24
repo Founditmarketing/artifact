@@ -7,6 +7,7 @@ import { PageShell } from "@/components/PageShell";
 import { SectionLabel } from "@/components/SectionLabel";
 import { Reveal } from "@/components/Reveal";
 import { StoredgeWidget } from "@/components/StoredgeWidget";
+import { ReserveTrigger } from "@/components/reserve/ReserveTrigger";
 
 type PageParams = { slug: string };
 
@@ -111,9 +112,12 @@ export default async function LocationPage({
               </div>
             </Reveal>
             <Reveal className="lhero-actions" delay={0.18}>
-              <Link href="#reserve" className="btn btn-primary">
+              <ReserveTrigger
+                className="btn btn-primary"
+                facility={loc.slug}
+              >
                 Reserve a Unit <span className="arr">→</span>
-              </Link>
+              </ReserveTrigger>
               <Link href="#locate" className="btn btn-ghost">
                 Get Directions
               </Link>
@@ -287,9 +291,12 @@ export default async function LocationPage({
           <em>{loc.name}</em> today.
         </h2>
         <div className="row">
-          <Link href="#reserve" className="btn b-dark">
+          <ReserveTrigger
+            className="btn b-dark"
+            facility={loc.slug}
+          >
             Reserve a Unit <span className="arr">→</span>
-          </Link>
+          </ReserveTrigger>
           <a href={loc.phoneHref} className="btn b-line">
             Call {loc.phone}
           </a>

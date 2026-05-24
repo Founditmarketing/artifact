@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
 import { ReserveFlow } from "@/components/ReserveFlow";
+import { ReserveAutoOpen } from "@/components/reserve/ReserveAutoOpen";
 
 export const metadata: Metadata = {
   title: "Reserve a Unit",
@@ -19,6 +20,9 @@ const TOPLINE = [
 export default function ReservePage() {
   return (
     <PageShell topline={TOPLINE}>
+      {/* Deep link to /reserve auto-opens the modal. If a user closes
+          it, the inline ReserveFlow stays underneath as a fallback. */}
+      <ReserveAutoOpen />
       <ReserveFlow />
     </PageShell>
   );

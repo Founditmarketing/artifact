@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { ReserveTrigger } from "@/components/reserve/ReserveTrigger";
 
 /**
  * HomeHero is above-the-fold. We deliberately do NOT gate it behind
@@ -47,9 +47,9 @@ export function HomeHero() {
               <b>catalogued, secured, and honestly priced</b> by a family that
               answers the phone.
             </p>
-            <Link href="/reserve" className="hero-cta">
+            <ReserveTrigger className="hero-cta">
               Reserve a Unit <span className="arr">→</span>
-            </Link>
+            </ReserveTrigger>
           </div>
         </div>
         <div className="hero-right">

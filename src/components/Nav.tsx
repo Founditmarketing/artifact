@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ReserveTrigger } from "./reserve/ReserveTrigger";
 
 type NavItem = { href: string; label: string; match?: (p: string) => boolean };
 
@@ -92,9 +93,7 @@ export function Nav() {
               </Link>
             );
           })}
-          <Link href="/reserve" className="cta">
-            Reserve →
-          </Link>
+          <ReserveTrigger className="cta">Reserve →</ReserveTrigger>
         </div>
         <button
           className="menu-btn"
@@ -144,13 +143,18 @@ export function Nav() {
             );
           })}
           <li className="mm-cta">
-            <Link href="/reserve" tabIndex={open ? 0 : -1} onClick={close}>
+            <ReserveTrigger
+              tabIndex={open ? 0 : -1}
+              onClick={() => {
+                close();
+              }}
+            >
               <span className="mm-num">§ 05</span>
               <span className="mm-lbl">Reserve a Unit</span>
               <span className="mm-arr" aria-hidden="true">
                 →
               </span>
-            </Link>
+            </ReserveTrigger>
           </li>
         </ol>
         <div className="mm-foot">

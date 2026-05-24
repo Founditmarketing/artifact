@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageShell } from "@/components/PageShell";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SizeGuide } from "@/components/sizeguide/SizeGuide";
+import { ReserveTrigger } from "@/components/reserve/ReserveTrigger";
 
 export const metadata: Metadata = {
   title: "Size Guide",
@@ -93,13 +94,13 @@ export default function SizeGuidePage() {
               </div>
               <span className="harr">→</span>
             </Link>
-            <Link href="/reserve">
+            <ReserveTrigger className="help-side-cta">
               <div>
                 <div className="hl">Reserve a Unit</div>
                 <div className="hm">Lock in today&apos;s honest rate</div>
               </div>
               <span className="harr">→</span>
-            </Link>
+            </ReserveTrigger>
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Fraunces, Spline_Sans_Mono } from "next/font/google";
 import "./globals.css";
+import { ReservationProvider } from "@/components/reserve/ReservationProvider";
 
 // Fraunces. Display serif. Variable across opsz (9..144), weight (300..600),
 // italic. We load both styles explicitly so <em> renders true italic, not
@@ -54,7 +55,9 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${archivo.variable} ${splineMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <ReservationProvider>{children}</ReservationProvider>
+      </body>
     </html>
   );
 }

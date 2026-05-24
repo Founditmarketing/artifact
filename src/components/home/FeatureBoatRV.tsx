@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { SectionLabel } from "@/components/SectionLabel";
+import { ReserveTrigger } from "@/components/reserve/ReserveTrigger";
 
 const SPECS = [
   "Fully enclosed bays with double-door access",
@@ -73,9 +73,12 @@ export function FeatureBoatRV() {
           ))}
         </div>
 
-        <Link href="/locations/nursery-road" className="feature-cta">
+        <ReserveTrigger
+          className="feature-cta"
+          facility="nursery-road"
+        >
           Store Your Boat or RV <span className="arr">→</span>
-        </Link>
+        </ReserveTrigger>
       </div>
     </section>
   );
