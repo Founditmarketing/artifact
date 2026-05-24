@@ -185,6 +185,41 @@ a {
   padding: 8px 0;
   overflow: hidden;
   white-space: nowrap;
+  /* Fade both edges so the marquee reads as a continuous reel rather
+     than text sliding off the viewport. Mask only on the ink side, the
+     blue background bleeds underneath.                                       */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 32px,
+    black calc(100% - 32px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 32px,
+    black calc(100% - 32px),
+    transparent 100%
+  );
+}
+@media (max-width: 680px) {
+  .topline {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 18px,
+      black calc(100% - 18px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 18px,
+      black calc(100% - 18px),
+      transparent 100%
+    );
+  }
 }
 .topline-track {
   display: inline-flex;
@@ -1818,12 +1853,19 @@ a {
 
 /* Margin note. A short bordered annotation that sits below the procedure
    ledger, breaking the recipe by adding a real piece of marginalia where
-   the left column would otherwise just be empty space.                      */
+   the left column would otherwise just be empty space. On wide viewports
+   it's capped at 38ch for editorial column width; on narrow viewports
+   it stretches to match the lede so it doesn't read as a random indent. */
 .reserve-margin {
   margin-top: 28px;
   border-top: 1px solid var(--line);
   padding-top: 18px;
   max-width: 38ch;
+}
+@media (max-width: 1080px) {
+  .reserve-margin {
+    max-width: none;
+  }
 }
 .reserve-margin .acc {
   margin-bottom: 8px;
@@ -2060,6 +2102,16 @@ a {
   line-height: 1.6;
   color: var(--ink-soft);
   letter-spacing: 0.02em;
+}
+.wsc-tel {
+  color: var(--ink);
+  border-bottom: 1px solid var(--gold);
+  transition: color 0.25s var(--ease-out-expo),
+    border-color 0.25s var(--ease-out-expo);
+}
+.wsc-tel:hover {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
 }
 .wsc-cta {
   margin-top: 8px;
@@ -4047,11 +4099,14 @@ a {
   .hero-kicker {
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
+    gap: 0;
+    margin-bottom: 22px;
   }
+  /* On phones, the three k/v pairs are redundant with the topline
+     marquee above and just cram tiny mono text under the accession
+     label. Hide them; keep AS·001 / Index visible.                          */
   .hero-kicker-meta {
-    justify-content: flex-start;
-    gap: 18px 22px;
+    display: none;
   }
   .hero-left {
     padding: 40px 22px;
@@ -4063,11 +4118,12 @@ a {
   .hero-survey .lead {
     width: 20px;
   }
+  /* The spinning brand stamp competes with the actual storefront
+     signage in the hero photograph at iPhone scale, and is pure
+     decoration. Hide it; the photo's own caption and the hero-survey
+     annotation carry the "Plate I" register on small screens.              */
   .hero-stamp {
-    width: 74px;
-    height: 74px;
-    right: 24px;
-    top: 20px;
+    display: none;
   }
   .hero-foot {
     flex-direction: column;
@@ -4118,6 +4174,8 @@ a {
     display: flex;
     align-items: baseline;
     gap: 9px;
+    /* Above any sibling content that shares the top-left */
+    z-index: 3;
   }
   .loc-entry .e-num .big {
     font-size: 1.5rem;
@@ -4129,8 +4187,12 @@ a {
     color: var(--blue-light);
     font-size: 0.58rem;
   }
+  /* Push the main content down so the absolutely-positioned chip in the
+     top-left has its own row. Previously the tag started at y=22px,
+     directly behind the chip; bump padding-top to clear the chip + a
+     comfortable gap.                                                         */
   .loc-entry .e-main {
-    padding: 22px 22px 18px;
+    padding: 56px 22px 18px;
     border-right: none;
     border-bottom: 1px solid var(--line);
     display: block;

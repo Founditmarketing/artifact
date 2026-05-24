@@ -1,14 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Reveal } from "@/components/Reveal";
 
+/**
+ * HomeHero is above-the-fold. We deliberately do NOT gate it behind
+ * the IntersectionObserver-driven .reveal animation, because that
+ * adds opacity:0 to the initial paint and causes a visible "empty
+ * grid for ~1s" on phones while React hydrates. The hero renders at
+ * full opacity immediately; the decorative crop-marks and survey
+ * annotation animate in via the existing CSS keyframes (tick-in,
+ * draw-y) which run unconditionally on load.
+ */
 export function HomeHero() {
   const year = new Date().getFullYear();
   return (
     <header className="hero">
       <div className="hero-main">
         <div className="hero-left">
-          <Reveal className="hero-kicker">
+          <div className="hero-kicker">
             <span className="acc">AS·001 / Index</span>
             <span className="hero-kicker-meta">
               <span className="hero-kicker-pair">
@@ -24,29 +32,27 @@ export function HomeHero() {
                 <span className="v">24 / 7 / 365</span>
               </span>
             </span>
-          </Reveal>
-          <Reveal as="h1" className="hero-h1" delay={0.06}>
+          </div>
+          <h1 className="hero-h1">
             <span className="ln">An archive</span>
             <span className="ln">for the things</span>
             <span className="ln">
               you <em>keep.</em>
             </span>
-          </Reveal>
+          </h1>
           <div className="hero-foot">
-            <Reveal as="p" className="hero-lede" delay={0.16}>
+            <p className="hero-lede">
               Climate-controlled units, enclosed boat &amp; RV bays, and
               round-the-clock access across three Rogers facilities:{" "}
               <b>catalogued, secured, and honestly priced</b> by a family that
               answers the phone.
-            </Reveal>
-            <Reveal delay={0.22}>
-              <Link href="/reserve" className="hero-cta">
-                Reserve a Unit <span className="arr">→</span>
-              </Link>
-            </Reveal>
+            </p>
+            <Link href="/reserve" className="hero-cta">
+              Reserve a Unit <span className="arr">→</span>
+            </Link>
           </div>
         </div>
-        <Reveal className="hero-right" delay={0.12}>
+        <div className="hero-right">
           <Image
             src="https://uploads.website.storedge.com/7957be7a-7d25-4f0d-ad22-40229ca92b95/dc_photography-11_08072025110243975.jpg"
             alt="Artifacts Self Storage 45th Street facility"
@@ -73,7 +79,7 @@ export function HomeHero() {
             <div className="t">Plate I · 45th Street Facility</div>
             <div className="m">Now Open / Climate Controlled</div>
           </div>
-        </Reveal>
+        </div>
       </div>
     </header>
   );

@@ -175,12 +175,14 @@ export function ReserveSection() {
               ))}
             </div>
             <div className="widget-stage widget-stage-compact">
-              <span className="wsc-acc">
-                AS·004 · STOREDGE MOUNT POINT
-              </span>
+              <span className="wsc-acc">AS·004 · Inventory Ledger</span>
               <p className="wsc-note">
-                Live Storedge widget loads here on production. Tabs and the
-                availability ledger above are illustrative placeholders.
+                Open a facility entry for full inventory and reservation, or
+                reach the on-site team at{" "}
+                <a href="tel:+14793726362" className="wsc-tel">
+                  (479) 372-6362
+                </a>
+                .
               </p>
               <Link
                 href={`/locations/${activeLoc.slug}`}
