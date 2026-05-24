@@ -1,0 +1,60 @@
+Polish pass against critique: hero, wordmark, chrome, section variety
+
+Direct response to the punch list:
+
+Hero typesetting
+- Drop the staircase indent and the gold dimension-tick band-aid.
+- Flush-left all three lines: "An archive / for the things / you keep."
+- Type size pushed (clamp 3.4-10.4rem), line-height tightened to 0.86,
+  letter-spacing to -0.05em, Fraunces opsz pinned at 144.
+- Italic "keep." carries the only emphasis.
+
+Wordmark
+- Remove the italic-a kerning trick. The "Artif<b>a</b>cts" pattern
+  is gone from both nav and footer.
+- Custom surveyor's-transit crosshair mark sits left of the wordmark
+  in the same vocabulary as the photographic registration marks.
+- Mark rotates 45 degrees on brand hover.
+
+Header chrome
+- Two bars at rest. The hero-top three-cell meta strip is gone; that
+  data folds into the hero kicker row inline with the accession label.
+- Reserve nav CTA is now outline-style (gold dot + transparent bg).
+  It fills with gold only on hover, so it stops competing with every
+  headline as you scroll.
+
+Section variety, breaking the recipe
+- Catalogue: hanging headline + ink CTA on the left, six-unit scale
+  diagram on a 1ft grid on the right, full-width ledger below.
+- FeatureBoatRV: full-bleed photographic plate with headline overlaid
+  bottom-left over a gradient scrim, four-cell horizontal spec strip
+  below, centered CTA at the bottom.
+- ReserveSection: dense availability ledger inside the widget showing
+  six unit-size cells per facility with state indicators (Available /
+  1 left / Waitlist) plus a meta header row (Facility / Open Sizes /
+  From). Procedure ledger reshaped to numbered title + monocaps body,
+  with a Margin Note annotation below filling the prior dead space.
+
+Dead space
+- Manifesto: standing-policy stamp at the bottom of the statement
+  column (filed/last-revised/posted dates + circular SVG wax seal).
+- Catalogue: scale diagram fills the prior right-column emptiness.
+- Reserve: availability ledger + margin note + facility CTA fill both
+  columns to the same height.
+
+Background grid
+- One system. Drop the FieldNote-specific ::before/::after edge ticks;
+  the body blueprint grid is the single source of truth.
+
+Production polish
+- devIndicators: false in next.config.ts so the harness no longer
+  shows the "N" in the bottom-left.
+- Tabular numerics on every metadata value.
+- React 19 set-state-in-effect lint clean.
+
+Acknowledged outside-resource gaps
+- A commissioned custom logotype is out of scope; the crosshair-mark
+  approach is the in-code equivalent.
+- Art-directed photography needs a photographer and facility access;
+  the existing Storedge CDN photo set is being used more confidently
+  (full-bleed Boat & RV plate) but not expanded.

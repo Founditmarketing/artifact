@@ -42,11 +42,40 @@ export function Nav() {
   return (
     <nav className="nav">
       <div className="nav-inner">
-        <Link href="/" className="brand">
-          <span className="name">
-            Artif<b>a</b>cts
+        <Link href="/" className="brand" aria-label="Artifacts Self Storage, home">
+          <span className="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <line
+                x1="12"
+                y1="2"
+                x2="12"
+                y2="22"
+                stroke="currentColor"
+                strokeWidth="1"
+              />
+              <line
+                x1="2"
+                y1="12"
+                x2="22"
+                y2="12"
+                stroke="currentColor"
+                strokeWidth="1"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="5"
+                stroke="currentColor"
+                strokeWidth="1"
+                fill="none"
+              />
+              <circle cx="12" cy="12" r="1.6" fill="currentColor" />
+            </svg>
           </span>
-          <span className="sub">Self Storage / Rogers AR</span>
+          <span className="brand-text">
+            <span className="name">Artifacts</span>
+            <span className="sub">Self Storage / Rogers AR</span>
+          </span>
         </Link>
         <div className="nav-links">
           {ITEMS.map((item) => {

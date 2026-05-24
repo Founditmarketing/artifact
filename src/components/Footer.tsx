@@ -21,8 +21,37 @@ export function Footer({
     <footer className="footer">
       <div className="foot-top">
         <div className="foot-cell brandcell">
-          <div className="nm">
-            Artif<b>a</b>cts
+          <div className="nm-row">
+            <span className="nm-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22">
+                <line
+                  x1="12"
+                  y1="2"
+                  x2="12"
+                  y2="22"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                />
+                <line
+                  x1="2"
+                  y1="12"
+                  x2="22"
+                  y2="12"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="5"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  fill="none"
+                />
+                <circle cx="12" cy="12" r="1.6" fill="currentColor" />
+              </svg>
+            </span>
+            <div className="nm">Artifacts</div>
           </div>
           <div className="sb">Self Storage / Rogers AR</div>
           <p>

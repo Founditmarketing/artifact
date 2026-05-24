@@ -3,33 +3,31 @@ import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 
 export function HomeHero() {
+  const year = new Date().getFullYear();
   return (
     <header className="hero">
-      <div className="hero-top">
-        <div className="cell">
-          <span>Catalogue</span>
-          <b>AS·{new Date().getFullYear()}</b>
-        </div>
-        <div className="cell">
-          <span>Holdings</span>
-          <b>3 Facilities</b>
-        </div>
-        <div className="cell">
-          <span>Access</span>
-          <b>24 / 7 / 365</b>
-        </div>
-      </div>
       <div className="hero-main">
         <div className="hero-left">
           <Reveal className="hero-kicker">
             <span className="acc">AS·001 / Index</span>
-            <span className="mono" style={{ color: "var(--ink-soft)" }}>
-              Rogers, Arkansas
+            <span className="hero-kicker-meta">
+              <span className="hero-kicker-pair">
+                <span className="k">Catalogue</span>
+                <span className="v">AS·{year}</span>
+              </span>
+              <span className="hero-kicker-pair">
+                <span className="k">Holdings</span>
+                <span className="v">3 Facilities</span>
+              </span>
+              <span className="hero-kicker-pair">
+                <span className="k">Access</span>
+                <span className="v">24 / 7 / 365</span>
+              </span>
             </span>
           </Reveal>
           <Reveal as="h1" className="hero-h1" delay={0.06}>
             <span className="ln">An archive</span>
-            <span className="ln indent">for the things</span>
+            <span className="ln">for the things</span>
             <span className="ln">
               you <em>keep.</em>
             </span>

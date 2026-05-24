@@ -94,7 +94,7 @@ p {
 /* Tabular numbers everywhere they appear in metadata so columns line up */
 .mono,
 .acc,
-.hero-top .cell b,
+.hero-kicker-pair .v,
 .head-top .cell b,
 .lhero-top .cell b,
 .spec-rows .sr .v,
@@ -222,23 +222,44 @@ a {
   max-width: 1340px;
   margin: 0 auto;
 }
+/* Brand lockup. A surveyor's transit mark sits at the left of the
+   wordmark — same registration vocabulary as the corner crop-marks
+   on every photograph. The wordmark itself is set without faux
+   ligature tricks; the mark carries the identity work.                      */
 .brand {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 16px 40px;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 32px;
   border-right: 1px solid var(--line-ink);
+  transition: background 0.3s var(--ease-out-expo);
+}
+.brand:hover {
+  background: var(--card);
+}
+.brand-mark {
+  display: inline-flex;
+  color: var(--ink);
+  flex-shrink: 0;
+  transition: color 0.3s var(--ease-out-expo),
+    transform 0.5s var(--ease-out-expo);
+}
+.brand:hover .brand-mark {
+  color: var(--gold-ink);
+  transform: rotate(45deg);
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
 }
 .brand .name {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 500;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   line-height: 1;
-}
-.brand .name b {
-  font-weight: 500;
-  font-style: italic;
+  font-variation-settings: "opsz" 24;
 }
 .brand .sub {
   font-family: var(--font-mono);
@@ -246,7 +267,7 @@ a {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold-ink);
-  margin-top: 5px;
+  margin-top: 6px;
 }
 .nav-links {
   display: flex;
@@ -270,15 +291,35 @@ a {
 .nav-links a.active {
   background: var(--paper-2);
 }
+/* Reserve CTA. Quiet at rest (so it doesn't compete with every
+   headline you scroll past), warmer on hover. The gold lives in
+   the keyline and the arrow, not in a saturated block.                       */
 .nav-links a.cta {
-  background: var(--gold);
+  background: transparent;
   color: var(--ink);
   font-weight: 500;
-  border-left: 1px solid var(--line-ink);
+  border-left: 1px solid var(--gold);
+  position: relative;
+  padding-left: 32px;
+}
+.nav-links a.cta::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transition: background 0.25s var(--ease-out-expo);
 }
 .nav-links a.cta:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
+.nav-links a.cta:hover::before {
   background: var(--ink);
-  color: var(--paper);
 }
 .menu-btn {
   display: none;
@@ -555,42 +596,32 @@ a {
   border-bottom: 1px solid var(--line-ink);
   position: relative;
 }
-.hero-top {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  border-bottom: 1px solid var(--line);
-  transform-origin: left;
-  animation: draw-x 1.1s var(--ease-out-expo) 0.15s both;
+/* Hero kicker metadata. Three k/v pairs sitting in the same row as
+   the AS·001 accession, replacing what used to be a third stacked
+   header bar above the hero.                                                 */
+.hero-kicker-meta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
-.hero-top .cell {
-  padding: 14px 40px;
+.hero-kicker-pair {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.06em;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+.hero-kicker-pair .k {
   color: var(--ink-soft);
-  border-right: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  position: relative;
 }
-.hero-top .cell:last-child {
-  border-right: none;
-}
-.hero-top .cell b {
+.hero-kicker-pair .v {
   color: var(--ink);
-  font-weight: 600;
-}
-.hero-top .cell:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  right: -3px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 5px;
-  height: 5px;
-  background: var(--blue);
-  border-radius: 50%;
+  font-weight: 500;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
 
 .hero-main {
@@ -635,44 +666,26 @@ a {
 .hero-h1 {
   font-family: var(--font-display);
   font-weight: 400;
-  /* Larger ceiling on wide displays. opsz pushed toward 144 at peak */
-  font-size: clamp(3.2rem, 9vw, 9.4rem);
-  line-height: 0.88;
-  letter-spacing: -0.045em;
-  margin-left: -0.04em;
+  /* Hero title: flush left, three lines, tight. The optical hang
+     comes from the line break itself, not from an indent gimmick.
+     Negative margin-left is a hanging-punctuation correction for
+     Fraunces's optical leading edge.                                          */
+  font-size: clamp(3.4rem, 10vw, 10.4rem);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  margin-left: -0.045em;
   font-optical-sizing: auto;
-  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+  font-variation-settings: "opsz" 144, "SOFT" 28, "WONK" 0;
+  /* Tabular figures elsewhere can use lining; here proportional is
+     correct because there are no figures.                                    */
+  text-wrap: balance;
 }
 .hero-h1 .ln {
   display: block;
-  position: relative;
-}
-.hero-h1 .ln.indent {
-  padding-left: 1.5em;
 }
 .hero-h1 em {
   font-style: italic;
   color: var(--blue);
-}
-.hero-h1 .ln.indent::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.62em;
-  width: 1.1em;
-  height: 1px;
-  background: var(--gold-deep);
-}
-.hero-h1 .ln.indent::after {
-  content: "";
-  position: absolute;
-  left: 1.05em;
-  top: 0.62em;
-  width: 0;
-  height: 0;
-  transform: translateY(-2.5px);
-  border: 2.5px solid transparent;
-  border-left-color: var(--gold-deep);
 }
 
 .hero-foot {
@@ -898,6 +911,61 @@ a {
   line-height: 1.65;
   margin-top: 24px;
   max-width: 340px;
+}
+
+/* Standing-policy stamp. Sits at the bottom of the manifesto statement
+   column, filling otherwise-empty space with a printed authority mark.
+   Three labelled k/v rows on the left, a circular wax-seal-style mark
+   on the right.                                                             */
+.manifesto-stamp {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 72px;
+  align-items: center;
+  gap: 24px;
+  max-width: 360px;
+  position: relative;
+}
+.manifesto-stamp .ms-rule {
+  position: absolute;
+  top: -28px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--line-ink) 0,
+    var(--line-ink) 3px,
+    transparent 3px,
+    transparent 7px
+  );
+}
+.manifesto-stamp .ms-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.manifesto-stamp .ms-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.manifesto-stamp .ms-row .ms-k {
+  color: var(--gold-ink);
+}
+.manifesto-stamp .ms-row .ms-v {
+  color: var(--ink);
+  font-weight: 500;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.manifesto-stamp .ms-seal {
+  color: var(--gold-ink);
+  display: inline-flex;
 }
 .ledger {
   display: flex;
@@ -1135,41 +1203,211 @@ a {
   border-top: 1px solid var(--line-ink);
   background: var(--paper-2);
 }
-.cat-head {
+
+/* Plate composition. Headline + diagram + footer-CTA on the right, all
+   sharing one tall row. Deliberately not the "eyebrow + h2 + body + list"
+   shape used in every other section.                                        */
+.cat-plate {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: flex-end;
-  padding: 64px 40px 36px;
+  grid-template-columns: 0.85fr 1.15fr;
   border-bottom: 1px solid var(--line-ink);
+  align-items: stretch;
 }
-.cat-head h2 {
-  font-size: clamp(2.4rem, 5.4vw, 5rem);
-  line-height: 0.92;
+.cat-plate-head {
+  padding: 80px 56px 56px;
+  border-right: 1px solid var(--line-ink);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.cat-plate-head .acc {
+  margin-bottom: 4px;
+}
+.cat-plate-head h2 {
+  font-size: clamp(2.6rem, 5.4vw, 5.4rem);
+  line-height: 0.9;
   letter-spacing: -0.04em;
-  font-variation-settings: "opsz" 120, "SOFT" 25;
+  font-variation-settings: "opsz" 144, "SOFT" 25;
 }
-.cat-head h2 em {
+.cat-plate-head h2 em {
   font-style: italic;
   color: var(--blue);
 }
-.cat-side {
-  font-size: 0.95rem;
+.cat-plate-lede {
+  font-size: 0.98rem;
   color: var(--ink-soft);
-  line-height: 1.65;
-  max-width: 420px;
-  justify-self: end;
+  line-height: 1.6;
+  max-width: 36ch;
 }
-.cat-side-link {
+.cat-plate-cta {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  background: var(--ink);
+  color: var(--paper);
+  transition: background 0.3s var(--ease-out-expo),
+    transform 0.3s var(--ease-out-expo);
+}
+.cat-plate-cta .arr {
+  transition: transform 0.25s var(--ease-out-expo);
+}
+.cat-plate-cta:hover {
+  background: var(--blue);
+  transform: translateY(-2px);
+}
+.cat-plate-cta:hover .arr {
+  transform: translateX(5px);
+}
+
+/* The diagram. Six unit footprints overlaid at true scale on a faint
+   one-foot grid, captioned by accession.                                    */
+.cat-diagram {
+  padding: 40px 40px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--card);
+  position: relative;
+}
+.cat-diagram-frame {
+  flex: 1;
+  position: relative;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 5.8px 5.8px;
+  background-color: var(--paper);
+  border: 1px solid var(--line-ink);
+  min-height: 320px;
+  padding: 50px 32px 40px;
+  overflow: hidden;
+}
+.cat-diagram-tag {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--paper);
+  padding: 4px 8px;
+  z-index: 5;
+}
+.cat-diagram-stack {
+  position: absolute;
+  left: 60px;
+  right: 60px;
+  bottom: 36px;
+  top: 60px;
+  display: flex;
+  align-items: flex-end;
+}
+.cat-diagram-room {
+  position: absolute;
+  border: 1.5px solid var(--blue);
+  background: rgba(44, 74, 110, 0.06);
+  transition: background 0.4s var(--ease-out-expo),
+    border-color 0.4s var(--ease-out-expo);
+}
+.cat-diagram-room:nth-child(odd) {
+  background: rgba(176, 138, 50, 0.08);
+  border-color: var(--gold-ink);
+}
+.cat-diagram-room::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  border-top: 1.5px solid var(--gold-ink);
+  border-left: 1.5px solid var(--gold-ink);
+}
+.cat-diagram-label {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.06em;
   color: var(--ink);
-  font-weight: 600;
-  border-bottom: 1px solid var(--gold);
-  transition: color 0.25s var(--ease-out-expo),
-    border-color 0.25s var(--ease-out-expo);
+  font-weight: 500;
+  white-space: nowrap;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
-.cat-side-link:hover {
-  color: var(--blue);
-  border-bottom-color: var(--blue);
+.cat-diagram-dim {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.cat-diagram-dim[data-axis="x"] {
+  right: 16px;
+  bottom: 14px;
+}
+.cat-diagram-dim[data-axis="y"] {
+  left: 16px;
+  bottom: 38px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+.cat-diagram-reg {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+}
+.cat-diagram-reg::before,
+.cat-diagram-reg::after {
+  content: "";
+  position: absolute;
+  background: var(--ink);
+}
+.cat-diagram-reg::before {
+  width: 12px;
+  height: 1px;
+  top: 5.5px;
+}
+.cat-diagram-reg::after {
+  width: 1px;
+  height: 12px;
+  left: 5.5px;
+}
+.cat-diagram-reg-tl {
+  top: 6px;
+  left: 6px;
+}
+.cat-diagram-reg-tr {
+  top: 6px;
+  right: 6px;
+}
+.cat-diagram-reg-bl {
+  bottom: 6px;
+  left: 6px;
+}
+.cat-diagram-reg-br {
+  bottom: 6px;
+  right: 6px;
+}
+.cat-diagram-legend {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
 .cat-ledger {
@@ -1288,50 +1526,6 @@ a {
   color: var(--ink);
 }
 
-.cat-foot {
-  border-top: 1px solid var(--line-ink);
-}
-.cat-foot-link {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 26px 40px;
-  background: var(--paper-2);
-  transition: background 0.3s var(--ease-out-expo),
-    color 0.3s var(--ease-out-expo);
-}
-.cat-foot-link:hover,
-.cat-foot-link:focus-visible {
-  background: var(--ink);
-  color: var(--paper);
-}
-.cat-foot-acc {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gold-ink);
-}
-.cat-foot-link:hover .cat-foot-acc,
-.cat-foot-link:focus-visible .cat-foot-acc {
-  color: var(--gold-light);
-}
-.cat-foot-cta {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-}
-.cat-foot-link .arr {
-  transition: transform 0.25s var(--ease-out-expo);
-}
-.cat-foot-link:hover .arr,
-.cat-foot-link:focus-visible .arr {
-  transform: translateX(6px);
-}
 
 /* =========================================================================
    FEATURE — Boat & RV
@@ -1345,133 +1539,186 @@ a {
 .feature .sec-label {
   border-bottom-color: rgba(198, 164, 88, 0.3);
 }
-.feature-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.feature-photo {
-  overflow: hidden;
-  min-height: 560px;
-  border-right: 1px solid rgba(198, 164, 88, 0.3);
+/* Photo plate. The Boat & RV photograph as a full-bleed catalogue plate.
+   Header metadata (accession, plate caption) sits in the top-left; the
+   display headline overlays the lower-left over a darker scrim. Below
+   the plate, a horizontal spec strip + centered CTA replace the old
+   side-by-side text column.                                                 */
+.feature-plate {
   position: relative;
+  min-height: clamp(440px, 56vw, 720px);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(198, 164, 88, 0.3);
 }
-.feature-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.feature-plate img {
   filter: grayscale(0.15) contrast(1.05);
 }
-.feature-photo .reg {
+.feature-plate::after {
+  content: "";
   position: absolute;
-  width: 18px;
-  height: 18px;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(21, 23, 28, 0.55) 0,
+    rgba(21, 23, 28, 0.05) 28%,
+    rgba(21, 23, 28, 0) 50%,
+    rgba(21, 23, 28, 0.35) 76%,
+    rgba(21, 23, 28, 0.82) 100%
+  );
   pointer-events: none;
-  z-index: 3;
+  z-index: 2;
 }
-.feature-photo .reg::before,
-.feature-photo .reg::after {
+.feature-plate-reg {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  z-index: 3;
+  pointer-events: none;
+}
+.feature-plate-reg::before,
+.feature-plate-reg::after {
   content: "";
   position: absolute;
   background: var(--paper);
 }
-.feature-photo .reg::before {
-  width: 18px;
+.feature-plate-reg::before {
+  width: 22px;
   height: 1px;
-  top: 8px;
+  top: 10px;
 }
-.feature-photo .reg::after {
+.feature-plate-reg::after {
   width: 1px;
-  height: 18px;
-  left: 8px;
+  height: 22px;
+  left: 10px;
 }
-.feature-photo .reg.tl {
-  top: 18px;
-  left: 18px;
+.feature-plate-reg.tl {
+  top: 22px;
+  left: 22px;
 }
-.feature-photo .reg.bl {
-  bottom: 18px;
-  left: 18px;
+.feature-plate-reg.tr {
+  top: 22px;
+  right: 22px;
 }
-.feature-photo .pcap {
+.feature-plate-reg.bl {
+  bottom: 22px;
+  left: 22px;
+}
+.feature-plate-reg.br {
+  bottom: 22px;
+  right: 22px;
+}
+.feature-plate-meta {
   position: absolute;
-  bottom: 18px;
-  right: 18px;
-  z-index: 3;
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--paper);
-  background: rgba(21, 23, 28, 0.55);
-  padding: 5px 9px;
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-}
-.feature-photo .pcap b {
-  color: var(--gold-light);
-  font-weight: 500;
-}
-.feature-text {
-  padding: 70px 50px;
+  top: 36px;
+  left: 56px;
+  z-index: 4;
   display: flex;
   flex-direction: column;
+  gap: 6px;
 }
-.feature-text .acc {
+.feature-plate-acc {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
   color: var(--gold-light);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
 }
-.feature-text .acc::before {
+.feature-plate-acc::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
   background: var(--gold-light);
 }
-.feature-text h2 {
-  font-size: clamp(2.4rem, 4.4vw, 4.4rem);
-  line-height: 0.94;
-  letter-spacing: -0.04em;
-  margin: 28px 0 0;
-  font-variation-settings: "opsz" 120, "SOFT" 25;
+.feature-plate-tag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: var(--paper-2);
+  text-transform: uppercase;
 }
-.feature-text h2 em {
+.feature-plate-headline {
+  position: absolute;
+  left: 56px;
+  right: 56px;
+  bottom: 56px;
+  z-index: 4;
+}
+.feature-plate-headline h2 {
+  color: var(--paper);
+  font-size: clamp(2.6rem, 5.6vw, 5.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  max-width: 16ch;
+  font-variation-settings: "opsz" 144, "SOFT" 28;
+  text-wrap: balance;
+}
+.feature-plate-headline h2 em {
   font-style: italic;
   color: var(--blue-light);
 }
-.feature-text > p {
-  color: var(--paper-2);
-  font-size: 1rem;
-  line-height: 1.7;
-  max-width: 420px;
-  margin-top: 24px;
-}
-.spec-list {
-  margin: 36px 0;
-  border-top: 1px solid rgba(198, 164, 88, 0.25);
-}
-.spec-list .row {
-  display: grid;
-  grid-template-columns: 70px 1fr;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(198, 164, 88, 0.25);
-  align-items: baseline;
-}
-.spec-list .row .n {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  color: var(--gold-light);
+
+/* Below-plate strip. Italic lede + horizontal spec grid + centered CTA. */
+.feature-strip {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  padding: 60px 40px 72px;
+  text-align: center;
+}
+.feature-strip-lede {
+  color: var(--paper-2);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.55;
+  max-width: 60ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-variation-settings: "opsz" 48, "SOFT" 40;
+}
+.feature-strip-specs {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(198, 164, 88, 0.25);
+  border-top: 1px solid rgba(198, 164, 88, 0.25);
+  border-bottom: 1px solid rgba(198, 164, 88, 0.25);
+}
+.fs-cell {
+  background: var(--ink);
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+}
+.fs-num {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-light);
+  display: inline-flex;
   align-items: center;
   gap: 8px;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
-.spec-list .row .n::before {
+.fs-num::before {
   content: "";
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   background: var(--blue-light);
-  flex-shrink: 0;
 }
-.spec-list .row .d {
-  font-size: 0.96rem;
-  color: var(--paper-2);
+.fs-body {
+  font-size: 0.95rem;
+  color: var(--paper);
+  line-height: 1.5;
 }
 .feature-cta {
-  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 14px;
@@ -1482,7 +1729,8 @@ a {
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: background 0.25s var(--ease-out-expo), transform 0.25s var(--ease-out-expo);
+  transition: background 0.25s var(--ease-out-expo),
+    transform 0.25s var(--ease-out-expo);
 }
 .feature-cta:hover {
   background: var(--gold-light);
@@ -1529,26 +1777,73 @@ a {
   margin-top: 22px;
   max-width: 360px;
 }
-.proc {
+/* Process ledger — three numbered procedure entries presented like
+   printed catalogue steps with labelled body copy.                          */
+.proc-ledger {
   margin-top: 36px;
 }
-.proc .p {
+.proc-row {
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 56px 1fr;
   padding: 18px 0;
   border-top: 1px solid var(--line);
   align-items: baseline;
 }
-.proc .p:last-child {
+.proc-row:last-child {
   border-bottom: 1px solid var(--line);
 }
-.proc .p .pn {
+.proc-num {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--blue);
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
-.proc .p .pd {
-  font-size: 0.96rem;
+.proc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.proc-lbl {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+}
+.proc-aux {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* Margin note. A short bordered annotation that sits below the procedure
+   ledger, breaking the recipe by adding a real piece of marginalia where
+   the left column would otherwise just be empty space.                      */
+.reserve-margin {
+  margin-top: 28px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  max-width: 38ch;
+}
+.reserve-margin .acc {
+  margin-bottom: 8px;
+  color: var(--gold-ink);
+}
+.reserve-margin p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.reserve-margin a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--gold);
+  transition: color 0.25s var(--ease-out-expo);
+  font-style: normal;
+}
+.reserve-margin a:hover {
+  color: var(--blue);
 }
 .reserve-right {
   background: var(--paper-2);
@@ -1646,6 +1941,143 @@ a {
   line-height: 1.6;
   letter-spacing: 0.02em;
 }
+
+/* Rich widget. The home-page Reserve section embeds this dense version
+   with simulated availability per unit size so the right column reads
+   as a real ledger of inventory rather than a placeholder.                  */
+.widget-rich {
+  display: flex;
+  flex-direction: column;
+}
+.widget-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+.wm-row {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-right: 1px solid var(--line);
+}
+.wm-row:last-child {
+  border-right: none;
+}
+.wm-k {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.wm-v {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: -0.015em;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.widget-availability {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--line);
+  gap: 1px;
+  border-bottom: 1px solid var(--line);
+}
+.av-cell {
+  background: var(--paper);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+}
+.av-cell::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.av-open::before {
+  background: var(--blue);
+}
+.av-low::before {
+  background: var(--gold);
+}
+.av-wait::before {
+  background: var(--ink);
+}
+.av-size {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.av-state {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.av-count {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.av-waitlist {
+  color: var(--gold-ink);
+}
+
+/* Compact widget stage: lives at the bottom of the rich widget; the
+   sectionplays the role of "Storedge mount-point caption" rather than
+   filling the whole panel.                                                  */
+.widget-stage-compact {
+  min-height: 0;
+  padding: 22px 22px 26px;
+  align-items: flex-start;
+  text-align: left;
+  background-image: none;
+  background: var(--paper-2);
+  gap: 10px;
+}
+.wsc-acc {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+}
+.wsc-note {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+.wsc-cta {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+}
+.wsc-cta .arr {
+  transition: transform 0.25s var(--ease-out-expo);
+}
+.wsc-cta:hover .arr {
+  transform: translateX(5px);
+}
 .widget-foot {
   font-family: var(--font-mono);
   font-size: 0.6rem;
@@ -1740,31 +2172,9 @@ a {
    ========================================================================= */
 .fieldnote {
   border-top: 1px solid var(--line-ink);
+  border-bottom: 1px solid var(--line-ink);
   background: var(--paper);
   position: relative;
-}
-/* Marginal ruler ticks reminiscent of an inked page edge */
-.fieldnote::before,
-.fieldnote::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    var(--line-ink) 0,
-    var(--line-ink) 1px,
-    transparent 1px,
-    transparent 14px
-  );
-  pointer-events: none;
-}
-.fieldnote::before {
-  left: 22px;
-}
-.fieldnote::after {
-  right: 22px;
 }
 
 .fn-grid {
@@ -1905,13 +2315,23 @@ a {
 .foot-cell:last-child {
   border-right: none;
 }
+.foot-cell.brandcell .nm-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold-light);
+  margin-bottom: 4px;
+}
 .foot-cell.brandcell .nm {
   font-family: var(--font-display);
   font-size: 1.7rem;
+  letter-spacing: -0.025em;
+  color: var(--paper);
+  font-variation-settings: "opsz" 36;
 }
-.foot-cell.brandcell .nm b {
-  font-style: italic;
-  font-weight: 500;
+.foot-cell.brandcell .nm-mark {
+  display: inline-flex;
+  color: var(--gold-light);
 }
 .foot-cell.brandcell .sb {
   font-family: var(--font-mono);
@@ -3414,12 +3834,20 @@ a {
   .loc-entry .e-photo {
     display: none;
   }
-  .feature-grid {
-    grid-template-columns: 1fr;
+  .feature-plate {
+    min-height: clamp(420px, 70vw, 560px);
   }
-  .feature-photo {
-    min-height: 340px;
-    border-right: none;
+  .feature-plate-meta {
+    top: 28px;
+    left: 32px;
+  }
+  .feature-plate-headline {
+    left: 32px;
+    right: 32px;
+    bottom: 40px;
+  }
+  .feature-strip-specs {
+    grid-template-columns: repeat(2, 1fr);
   }
   .reserve-grid {
     grid-template-columns: 1fr;
@@ -3427,6 +3855,20 @@ a {
   .reserve-left {
     border-right: none;
     border-bottom: 1px solid var(--line-ink);
+  }
+  .widget-availability {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .widget-meta {
+    grid-template-columns: 1fr 1fr;
+  }
+  .wm-row:nth-child(2n) {
+    border-right: none;
+  }
+  .wm-row:nth-child(3) {
+    grid-column: 1 / -1;
+    border-right: none;
+    border-top: 1px solid var(--line);
   }
   .test-grid {
     grid-template-columns: 1fr;
@@ -3464,15 +3906,25 @@ a {
   .fn-sign {
     text-align: center;
   }
+  .manifesto-stamp {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .manifesto-stamp .ms-seal {
+    justify-self: start;
+  }
 
   /* catalogue (home) */
-  .cat-head {
+  .cat-plate {
     grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 48px 40px 28px;
   }
-  .cat-side {
-    justify-self: start;
+  .cat-plate-head {
+    border-right: none;
+    border-bottom: 1px solid var(--line-ink);
+    padding: 52px 40px 36px;
+  }
+  .cat-diagram {
+    padding: 36px 40px 28px;
   }
   .cat-row {
     grid-template-columns: 140px 1fr 1fr;
@@ -3585,14 +4037,21 @@ a {
     background: none;
     cursor: pointer;
   }
-  .hero-top,
   .head-top {
     grid-template-columns: 1fr;
   }
-  .hero-top .cell,
   .head-top .cell {
     border-right: none;
     border-bottom: 1px solid var(--line);
+  }
+  .hero-kicker {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .hero-kicker-meta {
+    justify-content: flex-start;
+    gap: 18px 22px;
   }
   .hero-left {
     padding: 40px 22px;
@@ -3614,12 +4073,6 @@ a {
     flex-direction: column;
     align-items: flex-start;
     gap: 28px;
-  }
-  .hero-h1 .ln.indent {
-    padding-left: 0;
-  }
-  .hero-h1 .ln.indent::before {
-    content: none;
   }
   .ledger-row {
     grid-template-columns: 60px 1fr;
@@ -3729,8 +4182,20 @@ a {
   }
   .manifesto-statement,
   .reserve-left,
-  .feature-text {
-    padding: 48px 22px;
+  .feature-strip {
+    padding: 44px 22px 56px;
+  }
+  .feature-strip-specs {
+    grid-template-columns: 1fr;
+  }
+  .feature-plate-headline {
+    left: 22px;
+    right: 22px;
+    bottom: 32px;
+  }
+  .feature-plate-meta {
+    top: 22px;
+    left: 22px;
   }
   .index-head h2 {
     padding-right: 0;
@@ -3741,16 +4206,16 @@ a {
     padding: 44px 28px;
     gap: 24px;
   }
-  .fieldnote::before {
-    left: 14px;
-  }
-  .fieldnote::after {
-    right: 14px;
-  }
 
   /* catalogue mobile */
-  .cat-head {
-    padding: 36px 22px 22px;
+  .cat-plate-head {
+    padding: 40px 22px 28px;
+  }
+  .cat-diagram {
+    padding: 28px 22px 24px;
+  }
+  .cat-diagram-frame {
+    min-height: 240px;
   }
   .cat-row {
     grid-template-columns: 100px 1fr;
@@ -3773,12 +4238,6 @@ a {
   .cat-price {
     grid-column: 1 / -1;
     padding: 12px 18px 16px;
-  }
-  .cat-foot-link {
-    padding: 22px 22px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
   }
 
   /* size guide mobile */

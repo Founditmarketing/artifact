@@ -42,12 +42,25 @@ function CatRow({ u, delay }: { u: StorageUnit; delay: number }) {
 }
 
 /**
- * Home page Catalogue ledger. Previews all six unit sizes in one plate,
- * mirroring the manifesto's ledger rhythm, and routes into /size-guide.
- * Each row carries a true-scaled chip so the reader can read relative
- * size at a glance.
+ * Catalogue plate. Two stacked compositions, both unique to this section:
+ *
+ *   Top — a labelled scale diagram. Six unit footprints drawn at true
+ *   relative size on a one-foot grid, captioned with their accession
+ *   codes. The h2 hangs to the left like a museum wall text rather than
+ *   the standard "eyebrow + headline + paragraph" recipe.
+ *
+ *   Bottom — the full-width ledger with prices and comparables.
  */
 export function Catalogue() {
+  // Diagram metrics. The longest unit (10 × 30) fills the diagram height
+  // exactly; everything else scales against it.
+  const PX_PER_FT = 5.8;
+  const MAX_FT = 30;
+  // Sort units by area, smallest to largest, for the cascading silhouette
+  const diagram = [...UNITS].sort(
+    (a, b) => a.width * a.depth - b.width * b.depth,
+  );
+
   return (
     <section id="catalogue" className="catalogue">
       <SectionLabel
@@ -55,22 +68,72 @@ export function Catalogue() {
         title="The Catalogue"
         right="Six unit sizes across the holdings"
       />
-      <div className="cat-head">
-        <Reveal as="h2">
-          <>
-            Specimens, drawn
+
+      <div className="cat-plate">
+        <Reveal className="cat-plate-head">
+          <span className="acc">AS·006 / Reference Plate</span>
+          <h2>
+            Specimens,
             <br />
-            to <em>scale.</em>
-          </>
-        </Reveal>
-        <Reveal as="p" className="cat-side" delay={0.08}>
-          Every Artifacts unit is catalogued by dimension and recommended use.
-          The full reference, with what fits inside and where to find it across
-          the holdings, lives in the{" "}
-          <Link href="/size-guide" className="cat-side-link">
-            size guide
+            drawn to <em>scale.</em>
+          </h2>
+          <p className="cat-plate-lede">
+            Six footprints, one grid. Each unit&apos;s relative scale at a
+            glance, before you commit to the full reference.
+          </p>
+          <Link href="/size-guide" className="cat-plate-cta">
+            Open the size guide <span className="arr">→</span>
           </Link>
-          .
+        </Reveal>
+
+        <Reveal className="cat-diagram" delay={0.12}>
+          <div className="cat-diagram-frame">
+            <span className="cat-diagram-tag">
+              Plate · Relative scale, 1 sq = 1 ft
+            </span>
+            <div className="cat-diagram-stack">
+              {diagram.map((u, i) => (
+                <div
+                  key={u.id}
+                  className="cat-diagram-room"
+                  style={{
+                    width: `${u.width * PX_PER_FT}px`,
+                    height: `${u.depth * PX_PER_FT}px`,
+                    bottom: 0,
+                    left: `${i * 22}px`,
+                    zIndex: diagram.length - i,
+                  }}
+                  data-name={`${u.width}×${u.depth}`}
+                >
+                  <span className="cat-diagram-label">
+                    {u.width}×{u.depth}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <span
+              className="cat-diagram-dim"
+              aria-hidden="true"
+              data-axis="x"
+            >
+              30 ft
+            </span>
+            <span
+              className="cat-diagram-dim"
+              aria-hidden="true"
+              data-axis="y"
+            >
+              10 ft
+            </span>
+            <span className="cat-diagram-reg cat-diagram-reg-tl" aria-hidden />
+            <span className="cat-diagram-reg cat-diagram-reg-tr" aria-hidden />
+            <span className="cat-diagram-reg cat-diagram-reg-bl" aria-hidden />
+            <span className="cat-diagram-reg cat-diagram-reg-br" aria-hidden />
+          </div>
+          <div className="cat-diagram-legend">
+            <span>{MAX_FT * PX_PER_FT}px = 30 ft</span>
+            <span>One square = one foot</span>
+          </div>
         </Reveal>
       </div>
 
@@ -78,15 +141,6 @@ export function Catalogue() {
         {UNITS.map((u, i) => (
           <CatRow key={u.id} u={u} delay={i * 0.04} />
         ))}
-      </div>
-
-      <div className="cat-foot">
-        <Link href="/size-guide" className="cat-foot-link">
-          <span className="cat-foot-acc">AS·006 / Reference Catalogue</span>
-          <span className="cat-foot-cta">
-            Open the size guide <span className="arr">→</span>
-          </span>
-        </Link>
       </div>
     </section>
   );

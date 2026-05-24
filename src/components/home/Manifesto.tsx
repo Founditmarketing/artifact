@@ -49,6 +49,80 @@ export function Manifesto() {
             commitments, catalogued below, and held to at every one of our
             facilities.
           </p>
+
+          {/* Signature stamp. Sits at the bottom of the statement column,
+              filling what would otherwise be dead space with an authority
+              mark. */}
+          <div className="manifesto-stamp" aria-label="Posted policy">
+            <div className="ms-rule" aria-hidden="true" />
+            <div className="ms-rows">
+              <span className="ms-row">
+                <span className="ms-k">Filed</span>
+                <span className="ms-v">10 / 1998</span>
+              </span>
+              <span className="ms-row">
+                <span className="ms-k">Last revised</span>
+                <span className="ms-v">02 / {new Date().getFullYear()}</span>
+              </span>
+              <span className="ms-row">
+                <span className="ms-k">Posted</span>
+                <span className="ms-v">At every facility door</span>
+              </span>
+            </div>
+            <div className="ms-seal" aria-hidden="true">
+              <svg viewBox="0 0 56 56" width="56" height="56">
+                <circle
+                  cx="28"
+                  cy="28"
+                  r="26"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  fill="none"
+                />
+                <circle
+                  cx="28"
+                  cy="28"
+                  r="22"
+                  stroke="currentColor"
+                  strokeWidth="0.6"
+                  fill="none"
+                />
+                <text
+                  x="28"
+                  y="22"
+                  textAnchor="middle"
+                  fontFamily="Spline Sans Mono, monospace"
+                  fontSize="5"
+                  letterSpacing="1.4"
+                  fill="currentColor"
+                >
+                  STANDING
+                </text>
+                <text
+                  x="28"
+                  y="33"
+                  textAnchor="middle"
+                  fontFamily="Fraunces, serif"
+                  fontStyle="italic"
+                  fontSize="11"
+                  fill="currentColor"
+                >
+                  policy
+                </text>
+                <text
+                  x="28"
+                  y="42"
+                  textAnchor="middle"
+                  fontFamily="Spline Sans Mono, monospace"
+                  fontSize="5"
+                  letterSpacing="1.4"
+                  fill="currentColor"
+                >
+                  AS · 1998
+                </text>
+              </svg>
+            </div>
+          </div>
         </Reveal>
         <div className="ledger">
           {ITEMS.map((item, i) => (
