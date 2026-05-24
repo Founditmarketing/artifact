@@ -55,6 +55,15 @@ for (const route of targets) {
       .querySelectorAll(".sec-label")
       .forEach((el) => el.classList.add("scribed"));
   });
+  // Force-open the mobile menu when MENU_OPEN=1 so we can screenshot
+  // the drawer in its open state.
+  if (process.env.MENU_OPEN) {
+    await page.evaluate(() => {
+      const btn = document.querySelector(".menu-btn");
+      if (btn) btn.click();
+    });
+    await new Promise((r) => setTimeout(r, 600));
+  }
   await new Promise((r) => setTimeout(r, 400));
   const slug = route === "/" ? "home" : route.replace(/^\//, "").replace(/\//g, "-");
   const suffix = mobile ? ".mobile" : "";
@@ -72,8 +81,11 @@ for (const route of targets) {
       console.log(`saved ${out}`);
     }
   } else {
+    // VIEWPORT_ONLY: a single first-paint screenshot (not the whole
+    // scrollable page). Useful for capturing modal/drawer state.
+    const fullPage = !process.env.VIEWPORT_ONLY;
     const out = join("screenshots", `${slug}${suffix}.png`);
-    await page.screenshot({ path: out, fullPage: true });
+    await page.screenshot({ path: out, fullPage });
     console.log(`saved ${out}`);
   }
   await page.close();

@@ -256,6 +256,13 @@ a {
   justify-content: space-between;
   max-width: 1340px;
   margin: 0 auto;
+  /* Inside the .nav stacking context, .mobile-menu sits at z:90.
+     nav-inner needs a higher local z-index so the hamburger button
+     stays clickable and the X-morph stays visible when the drawer
+     is open.                                                              */
+  position: relative;
+  z-index: 110;
+  background: var(--paper);
 }
 /* Brand lockup. A surveyor's transit mark sits at the left of the
    wordmark — same registration vocabulary as the corner crop-marks
@@ -417,17 +424,47 @@ a {
 .mm-head {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  padding: 18px 22px;
+  align-items: center;
+  padding: 12px 14px 12px 22px;
   border-top: 1px solid var(--line-ink);
   border-bottom: 1px solid var(--line);
+  gap: 12px;
 }
-.mm-edition {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
+/* Close button. Sits inside the menu so users always see a deliberate
+   close affordance regardless of the morph-X on the hamburger above.
+   Touch target is at least 44px; label is set in display italic so it
+   reads as an editorial action, not a system control.                       */
+.mm-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line-ink);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 9px 14px 9px 16px;
+  min-height: 44px;
+  cursor: pointer;
+  font: inherit;
+  transition: background 0.25s var(--ease-out-expo),
+    color 0.25s var(--ease-out-expo);
+}
+.mm-close:hover,
+.mm-close:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+.mm-close-lbl {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.mm-close-x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
 }
 .mm-list {
   list-style: none;
@@ -515,6 +552,15 @@ a {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+}
+.mm-foot-edition {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
 }
 
 /* =========================================================================

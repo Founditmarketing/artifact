@@ -117,10 +117,41 @@ export function Nav() {
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
+        aria-label="Catalogue navigation"
       >
         <div className="mm-head">
           <span className="acc">Catalogue / Navigation</span>
-          <span className="mm-edition">Edition AS·{new Date().getFullYear()}</span>
+          <button
+            type="button"
+            className="mm-close"
+            onClick={close}
+            aria-label="Close menu"
+            tabIndex={open ? 0 : -1}
+          >
+            <span className="mm-close-lbl">Close</span>
+            <span className="mm-close-x" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20">
+                <line
+                  x1="5"
+                  y1="5"
+                  x2="19"
+                  y2="19"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                />
+                <line
+                  x1="19"
+                  y1="5"
+                  x2="5"
+                  y2="19"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
         <ol className="mm-list">
           {ITEMS.map((item, i) => {
@@ -161,6 +192,9 @@ export function Nav() {
             (479) 372-6362
           </a>
           <span>Office, Mon–Fri 9–5 · Access 24/7</span>
+          <span className="mm-foot-edition">
+            Edition AS·{new Date().getFullYear()} / Volume I
+          </span>
         </div>
       </div>
     </nav>
