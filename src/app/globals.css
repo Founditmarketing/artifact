@@ -2187,6 +2187,439 @@ a {
 }
 
 /* =========================================================================
+   RESERVE FLOW — dedicated /reserve page
+   Distinct from the home-page ReserveSection: no editorial chrome at
+   the top, the live-availability widget is the first thing the user
+   sees, the explainer steps live below as supporting content.
+   ========================================================================= */
+.reserve-flow {
+  border-bottom: 1px solid var(--line-ink);
+  background: var(--paper);
+  padding: 28px 40px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.rf-head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 24px;
+}
+.rf-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  text-wrap: balance;
+  max-width: 22ch;
+  font-variation-settings: "opsz" 60, "SOFT" 30;
+}
+.rf-title-aux {
+  font-style: italic;
+  color: var(--blue);
+}
+
+/* Widget */
+.rf-widget {
+  background: var(--card);
+  border: 1px solid var(--line-ink);
+  display: flex;
+  flex-direction: column;
+}
+.rf-widget-bar {
+  background: var(--blue);
+  color: var(--paper);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+}
+.rf-widget-bar-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.rf-widget-bar-promo {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  background: var(--gold);
+  color: var(--ink);
+  padding: 5px 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Facility tabs as 3-up large tap targets */
+.rf-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--line);
+}
+.rf-tab {
+  background: var(--paper);
+  border: none;
+  border-right: 1px solid var(--line);
+  padding: 16px 14px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 80px;
+  transition: background 0.25s var(--ease-out-expo),
+    color 0.25s var(--ease-out-expo);
+  position: relative;
+}
+.rf-tab:last-child {
+  border-right: none;
+}
+.rf-tab:hover {
+  background: var(--card);
+}
+.rf-tab.is-active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.rf-tab.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold);
+}
+.rf-tab-num {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-ink);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.rf-tab.is-active .rf-tab-num {
+  color: var(--gold-light);
+}
+.rf-tab-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  line-height: 1;
+}
+.rf-tab-tag {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.rf-tab.is-active .rf-tab-tag {
+  color: var(--paper-2);
+}
+
+/* Meta row beneath tabs */
+.rf-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+.rf-meta-row {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-right: 1px solid var(--line);
+}
+.rf-meta-row:last-child {
+  border-right: none;
+}
+.rf-meta-k {
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.rf-meta-v {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Availability grid */
+.rf-availability {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.rf-cell {
+  background: var(--paper);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+}
+.rf-cell::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.rf-cell-open::before {
+  background: var(--blue);
+}
+.rf-cell-low::before {
+  background: var(--gold);
+}
+.rf-cell-wait::before {
+  background: var(--ink);
+}
+.rf-cell-size {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.rf-cell-state {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.rf-cell-count {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--ink);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.rf-cell-wait .rf-cell-count {
+  color: var(--gold-ink);
+}
+
+/* CTAs */
+.rf-cta-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  background: var(--paper-2);
+}
+.rf-cta-primary {
+  background: var(--blue);
+  color: var(--paper);
+  padding: 20px 22px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  transition: background 0.25s var(--ease-out-expo);
+}
+.rf-cta-primary:hover,
+.rf-cta-primary:focus-visible {
+  background: var(--ink);
+}
+.rf-cta-primary .arr {
+  transition: transform 0.25s var(--ease-out-expo);
+}
+.rf-cta-primary:hover .arr,
+.rf-cta-primary:focus-visible .arr {
+  transform: translateX(5px);
+}
+.rf-cta-secondary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 22px;
+  border-left: 1px solid var(--line-ink);
+  min-height: 56px;
+  background: var(--paper-2);
+  transition: background 0.25s var(--ease-out-expo);
+}
+.rf-cta-secondary:hover,
+.rf-cta-secondary:focus-visible {
+  background: var(--card);
+}
+.rf-cta-secondary-label {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.rf-cta-secondary-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-top: 2px;
+}
+
+/* Below-widget explainer steps */
+.rf-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+}
+.rf-steps-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.rf-step-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.rf-step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+}
+.rf-step:last-child {
+  border-bottom: none;
+}
+.rf-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--blue);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.rf-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rf-step-lbl {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+}
+.rf-step-aux {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.rf-promise {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+  max-width: 60ch;
+}
+.rf-promise a {
+  border-bottom: 1px solid var(--gold);
+  transition: color 0.25s var(--ease-out-expo),
+    border-color 0.25s var(--ease-out-expo);
+  font-style: normal;
+}
+.rf-promise a:hover {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+}
+
+@media (max-width: 1080px) {
+  .reserve-flow {
+    padding: 20px 22px 48px;
+    gap: 24px;
+  }
+}
+@media (max-width: 680px) {
+  .reserve-flow {
+    padding: 16px 16px 40px;
+    gap: 20px;
+  }
+  .rf-head {
+    padding-bottom: 16px;
+    gap: 10px;
+  }
+  /* Tabs stack vertically on phones so each is a generous tap target */
+  .rf-tabs {
+    grid-template-columns: 1fr;
+  }
+  .rf-tab {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 14px 18px;
+    min-height: 60px;
+  }
+  .rf-tab:last-child {
+    border-bottom: none;
+  }
+  .rf-tab-num {
+    order: 1;
+  }
+  .rf-tab-name {
+    order: 2;
+    flex: 1;
+    font-size: 1.1rem;
+  }
+  .rf-tab-tag {
+    order: 3;
+    flex-basis: 100%;
+    margin-top: 2px;
+  }
+  /* Meta collapses to 2-up + open count on its own row */
+  .rf-meta {
+    grid-template-columns: 1fr 1fr;
+  }
+  .rf-meta-row:nth-child(2) {
+    border-right: none;
+  }
+  .rf-meta-row:nth-child(3) {
+    grid-column: 1 / -1;
+    border-right: none;
+    border-top: 1px solid var(--line);
+  }
+  /* Availability becomes 2-up on phones */
+  .rf-availability {
+    grid-template-columns: 1fr 1fr;
+  }
+  .rf-cta-row {
+    grid-template-columns: 1fr;
+  }
+  .rf-cta-secondary {
+    border-left: none;
+    border-top: 1px solid var(--line-ink);
+  }
+}
+
+/* =========================================================================
    TESTIMONY
    ========================================================================= */
 .testimony {
